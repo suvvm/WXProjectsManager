@@ -33,7 +33,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 11,
+			"current": 12,
 			"list": [
 				{
 					"id": -1,
@@ -116,6 +116,13 @@
 					"name": "根据时间筛选项目",
 					"pathName": "pages/timeSubject/timeSubject",
 					"query": "",
+					"scene": null
+				},
+				{
+					"id": 12,
+					"name": "修改项目",
+					"pathName": "pages/modifySubject/modifySubject",
+					"query": "subjectid=26b301645d4178c207878bc135f428de",
 					"scene": null
 				}
 			]

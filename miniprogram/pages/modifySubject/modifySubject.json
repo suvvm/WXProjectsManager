@@ -1,3 +1,10 @@
 {
-  "usingComponents": {}
+  "usingComponents": {
+    "van-picker": "vant-weapp/picker",
+    "van-field": "vant-weapp/field",
+    "van-badge": "vant-weapp/badge",
+    "van-badge-group": "vant-weapp/badge-group",
+    "van-button": "vant-weapp/button",
+    "van-area": "vant-weapp/area"
+  }
 }

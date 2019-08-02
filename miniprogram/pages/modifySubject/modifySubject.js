@@ -1,18 +1,279 @@
 // pages/modifySubject/modifySubject.js
+const app = getApp();
+const db = wx.cloud.database();
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    sid: '',
+    openid: app.globalData.openid,
+    department: [],
+    myDepartment: '',
+    schoolName: getApp().globalData.schoolName,
+    bgdates: '1999-08-07',
+    bgtimes: '12:00',
+    eddates: '2019-07-26',
+    edtimes: '12:00',
+    sname: '',
+    introduce: '',
+    sponsor: '',
+    maxNum: 0,
+    nowNum: 0,
+    price: '',
+    type: '',
+    AreaList: app.globalData.AreaList,
+    location: {},
+    images: [],
+    fileIds: [],
+    subject: {}
   },
+  onDepartmentChange: function (e) {
+    this.setData({
+      myDepartment: e.detail.value
+    })
+  },
+  //  点击开始时间组件确定事件  
+  bgbindTimeChange: function (e) {
+    console.log("肥豪肥")
+    this.setData({
+      bgtimes: e.detail.value
+    })
+  },
+  //  点击开始日期组件确定事件  
+  bgbindDateChange: function (e) {
+    console.log(e.detail.value)
+    this.setData({
+      bgdates: e.detail.value
+    })
+  },
+  //  点击结束时间组件确定事件  
+  edbindTimeChange: function (e) {
+    console.log("瘦豪瘦")
+    this.setData({
+      edtimes: e.detail.value
+    })
+  },
+  //  点击结束日期组件确定事件  
+  edbindDateChange: function (e) {
+    console.log(e.detail.value)
+    this.setData({
+      eddates: e.detail.value
+    })
+  },
+  //  点击地区组件确认事件
+  onAddrConfirm: function (e) {
+    console.log(e.detail.values)
+    this.setData({
+      location: e.detail.values
+    })
+  },
+  //  项目名称变更
+  onSnameChange: function (e) {
+    this.setData({
+      sname: e.detail
+    })
+  },
+  //  项目介绍变更
+  onIntroduceChange: function (e) {
+    this.setData({
+      introduce: e.detail
+    })
+  },
+  //  项目主办方变更
+  onSponsorChange: function (e) {
+    this.setData({
+      sponsor: e.detail
+    })
+  },
+  //  最大人数变更
+  onMaxNumChange: function (e) {
+    this.setData({
+      maxNum: e.detail
+    })
+  },
+  onNowNumChange: function (e) {
+    this.setData({
+      nowNum: e.detail
+    })
+  },
+  //  费用变更
+  onPriceChange: function (e) {
+    this.setData({
+      price: e.detail
+    })
+  },
+  //  类型变更
+  onTypeChange: function (e) {
+    this.setData({
+      type: e.detail
+    })
+  },
+  //  上传图片
+  uploadImg: function (e) {
+    wx.chooseImage({
+      count: 9,
+      sizeType: ['original', 'compressed'],
+      sourceType: ['album', 'camera'],
+      success: (result) => {
+        const tempFilePaths = result.tempFilePaths
+        console.log(tempFilePaths)
+        this.setData({
+          images: tempFilePaths
+        })
+      },
+      fail: () => { },
+      complete: () => { }
+    });
+  },
+  submit: function (e) {
+    wx.showLoading({
+      title: '提交中',
+      mask: true,
+      success: (result) => {
 
+      },
+      fail: () => { },
+      complete: () => { }
+    });
+    wx.cloud.deleteFile({
+      fileList: this.data.fileIds,
+      success: res => {
+        // handle success
+        console.log(res.fileList)
+      },
+      fail: console.error
+    })
+    let promiseArr = [];
+    for (let i = 0; i < this.data.images.length; i++) {
+      promiseArr.push(new Promise((reslove, reject) => {
+        let item = this.data.images[i];
+        let suffix = /\.\w+$/.exec(item)[0];
+        wx.cloud.uploadFile({
+          cloudPath: 'subjectImgs' + '/' + new Date().getTime() + suffix,
+          filePath: item,
+          success: (result) => {
+            console.log(result.fileID)
+            this.setData({
+              fileIds: new Array(result.fileID)
+            });
+            reslove();
+          },
+          fail: () => { console.error }
+        });
+      }));
+    }
+    Promise.all(promiseArr).then(res => {
+      db.collection('subjectInf').doc(this.data.dataid).update({
+        data: {
+          schoolName: this.data.schoolName,
+          bgdates: this.data.bgdates,
+          bgtimes: this.data.bgtimes,
+          eddates: this.data.eddates,
+          edtimes: this.data.edtimes,
+          sname: this.data.sname,
+          introduce: this.data.introduce,
+          sponsor: this.data.sponsor,
+          maxNum: this.data.maxNum,
+          nowNum: this.data.nowNum,
+          price: this.data.price,
+          type: this.data.type,
+          location: this.data.location,
+          fileIds: this.data.fileIds,
+          department: this.data.myDepartment
+        }
+      }).then(res => {
+        console.log(res);
+        wx.hideLoading();
+        wx.showToast({
+          title: '修改成功',
+          icon: 'none',
+          image: '',
+          duration: 1500,
+          mask: false,
+          success: (result) => {
+
+          },
+          fail: () => { },
+          complete: () => { }
+        });
+        wx.navigateBack({
+          delta: 1
+        });
+      }).catch(err => {
+        console.error(err);
+        wx.hideLoading();
+        wx.showToast({
+          title: '修改失败',
+          icon: 'none',
+          image: '',
+          duration: 1500,
+          mask: false,
+          success: (result) => {
+
+          },
+          fail: () => { },
+          complete: () => { }
+        });
+      })
+    });
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    wx.showLoading({
+      title: '加载中',
+      mask: true,
+      success: (result) => {
 
+      },
+      fail: () => { },
+      complete: () => { }
+    });
+    this.setData({
+      sid: options.subjectid,
+    })
+    db.collection('subjectInf').doc(
+      options.subjectid
+    ).get().then(res => {
+      this.setData({
+        subject: res.data,
+        bgdates: res.data.bgdates,
+        bgtimes: res.data.bgtimes,
+        myDepartment: res.data.department,
+        eddates: res.data.eddates,
+        edtimes: res.data.edtimes,
+        fileIds: res.data.fileIds,
+        introduce: res.data.introduce,
+        location: res.data.location,
+        maxNum: res.data.maxNum,
+        nowNum: res.data.nowNum,
+        price: res.data.price,
+        sname: res.data.sname,
+        sponsor: res.data.sponsor,
+        type: res.data.type,
+        schoolName: res.data.schoolName,
+        AreaList: app.globalData.AreaList,
+        images: res.data.fileIds,
+      })
+      db.collection('schoolinf').where({
+        schoolName: res.data.schoolName
+      }).get().then(res2 => {
+        this.setData({
+          department: this.data.department.concat(res2.data[0].department)
+        })
+        wx.hideLoading();
+      }).catch(err => {
+        console.error(err);
+        wx.hideLoading();
+      })
+    }).catch(err => {
+      console.error(err);
+      wx.hideLoading();
+    });
   },
 
   /**
