@@ -166,7 +166,7 @@ Page({
       }));
     }
     Promise.all(promiseArr).then(res => {
-      db.collection('subjectInf').doc(this.data.dataid).update({
+      db.collection('subjectInf').doc(this.data.sid).update({
         data: {
           schoolName: this.data.schoolName,
           bgdates: this.data.bgdates,

@@ -33,7 +33,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 12,
+			"current": 13,
 			"list": [
 				{
 					"id": -1,
@@ -122,6 +122,13 @@
 					"id": 12,
 					"name": "修改项目",
 					"pathName": "pages/modifySubject/modifySubject",
+					"query": "subjectid=26b301645d4178c207878bc135f428de",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "项目申请",
+					"pathName": "pages/applySubject/applySubject",
 					"query": "subjectid=26b301645d4178c207878bc135f428de",
 					"scene": null
 				}
