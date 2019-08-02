@@ -1,7 +1,7 @@
 // pages/subjectInfo/subjectInfo.js
 const db = wx.cloud.database();
 
-const app =  getApp();
+const app = getApp();
 
 Page({
 
@@ -12,6 +12,16 @@ Page({
     sid: '',
     subject: {},
     isSchoolManager: false
+  },
+  apply: function () {
+    wx.navigateTo({
+      url: `../applySubject/applySubject?subjectid=${this.data.sid}`,
+      success: (result) => {
+
+      },
+      fail: () => { },
+      complete: () => { }
+    });
   },
 
   /**
@@ -25,11 +35,11 @@ Page({
     wx.showLoading({
       title: '加载中',
       mask: true,
-      success: (result)=>{
-        
+      success: (result) => {
+
       },
-      fail: ()=>{},
-      complete: ()=>{}
+      fail: () => { },
+      complete: () => { }
     });
     db.collection('subjectInf').doc(
       options.subjectid
@@ -49,7 +59,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    
+
   },
 
   /**
