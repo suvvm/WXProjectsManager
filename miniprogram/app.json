@@ -6,6 +6,7 @@
     "pages/createSchool/createSchool",
     "pages/chooseSchool/chooseSchool",
     "pages/modifySchool/modifySchool",
+    "pages/modifySubject/modifySubject",
     "pages/allSubject/allSubject",
     "pages/subjectInfo/subjectInfo",
     "pages/typeSubject/typeSubject",
