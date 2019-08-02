@@ -1,0 +1,9 @@
+{
+  "usingComponents": {
+    "van-button": "vant-weapp/button",
+    "van-collapse": "vant-weapp/collapse",
+    "van-collapse-item": "vant-weapp/collapse-item",
+    "van-picker": "vant-weapp/picker",
+    "van-area": "vant-weapp/area"
+  }
+}

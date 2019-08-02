@@ -1,0 +1,26 @@
+/* pages/areaSubject/areaSubject.wxss */
+.subject{
+    height: 300rpx;
+    display: flex;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.subject-img{
+    width: 200rpx;
+    height: 90%;
+    margin-right: 20rpx;
+}
+
+.subject-inf{
+    flex: 1;
+}
+
+.subject-to{
+    margin-top: 90rpx;
+    height: 60rpx;
+    background: #e54847;
+    color: #ffffff;
+    font-size: 26rpx;
+    width: 200rpx;
+}

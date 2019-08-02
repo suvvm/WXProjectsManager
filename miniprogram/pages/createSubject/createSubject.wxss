@@ -1,0 +1,6 @@
+/* pages/createSubject/createSubject.wxss */
+.section{
+    background:#CABBC7;
+    margin:20rpx;
+    padding:20rpx
+ }

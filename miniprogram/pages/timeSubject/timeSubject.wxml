@@ -1,0 +1,46 @@
+<!--pages/timeSubject/timeSubject.wxml-->
+<van-collapse value="{{ activeNames }}" bind:change="onCollapseChange">
+    <van-collapse-item title="设置时间" name="1">
+        <view>开始时间</view>
+        <view class="section">  
+        <picker mode="time" value="{{bgtime}}" start="00:00" end="23:59" bindchange="bgbindTimeChange">  
+            <view class="picker">  
+            时间 : {{bgtimes}}
+            </view>  
+        </picker>  
+        </view>  
+        <view class="section">  
+        <picker mode="date" value="{{bgdate}}" start="1900-01-01" end="2200-01-01" bindchange="bgbindDateChange">  
+            <view class="picker">  
+            日期: {{bgdates}}  
+            </view>  
+        </picker>  
+        </view>  
+        <view>结束时间</view>
+        <view class="section">  
+        <picker mode="time" value="{{edtime}}" start="00:00" end="23:59" bindchange="edbindTimeChange">  
+            <view class="picker">  
+            时间 : {{edtimes}}
+            </view>  
+        </picker>  
+        </view>  
+        <view class="section">  
+        <picker mode="date" value="{{eddate}}" start="1900-01-01" end="2200-01-01" bindchange="edbindDateChange">  
+            <view class="picker">  
+            日期: {{eddates}}  
+            </view>  
+        </picker>  
+        </view> 
+    </van-collapse-item>
+</van-collapse>
+<view wx:for="{{nowSubject}}" class="subject" wx:key="{{index}}">
+    <image class="subject-img" src="{{item.fileIds[0]}}"></image>
+    <view class="subject-inf">
+        <view >{{item.sname}}</view>
+        <view >主办方:{{item.sponsor}}</view>
+        <view >种类:{{item.type}}</view>
+        <view >介绍:{{item.introduce}}</view>
+    </view>
+    <button data-subjectid="{{item._id}}" class="subject-to" bindtap="gotoinfo">详情</button>
+</view>
+

@@ -1,0 +1,17 @@
+<!--pages/createSchool/createSchool.wxml-->
+<view >校名</view>
+<van-field value="" placeholder="这里填写学校名称" bind:change="onSchoolNameChange" />
+<view >学校介绍</view>
+<van-field type="textarea" autosize value="" placeholder="这里填写学校介绍" bind:change="onIntroduceChange" />
+<view >校徽</view>
+<van-button type="warning" bindtap="uploadSchoolBadge">上传校徽</van-button>
+<view>
+    <image class="comment-img" src="{{item}}" wx:for="{{schoolBadge}}" wx:key="{{index}}"></image>
+</view>
+<view >公证文件</view>
+<van-button type="warning" bindtap="uploadCertificate">公证文件</van-button>
+<view>
+    <image class="comment-img" src="{{item}}" wx:for="{{certificate}}" wx:key="{{index}}"></image>
+</view>
+<van-button size="large" type="danger" bindtap="submit">提交</van-button>
+

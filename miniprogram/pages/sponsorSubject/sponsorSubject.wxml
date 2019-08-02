@@ -1,0 +1,17 @@
+<!--pages/sponsorSubject/sponsorSubject.wxml-->
+<van-collapse value="{{ activeNames }}" bind:change="onCollapseChange">
+  <van-collapse-item title="主办方标签列表" name="1">
+    <van-picker columns="{{ sponsors }}" bind:change="onSponsorChange" />
+  </van-collapse-item>
+</van-collapse>
+
+<view wx:for="{{nowSubject}}" class="subject" wx:key="{{index}}">
+    <image class="subject-img" src="{{item.fileIds[0]}}"></image>
+    <view class="subject-inf">
+        <view >{{item.sname}}</view>
+        <view >主办方:{{item.sponsor}}</view>
+        <view >种类:{{item.type}}</view>
+        <view >介绍:{{item.introduce}}</view>
+    </view>
+    <button data-subjectid="{{item._id}}" class="subject-to" bindtap="gotoinfo">详情</button>
+</view>

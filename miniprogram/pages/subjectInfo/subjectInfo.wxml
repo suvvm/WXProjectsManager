@@ -1,0 +1,26 @@
+<!--pages/subjectInfo/subjectInfo.wxml-->
+<view class=''>
+  <view class='detail-container' style='background: url({{subject.fileIds[0]}}) no-repeat  top/cover'></view>
+  <view class='detail-mask'></view>
+  <view class='detail-info'>
+    <image src="{{subject.fileIds[0]}}" class='detail-img'></image>
+    <view class='detail'>
+      <view class='detail-nm'>项目名:{{subject.sname}}</view>
+      <view>学校:{{subject.schoolName}}</view>
+      <view class='detail.sc'>主办方:{{subject.sponsor}}</view>
+      <view>类型:{{subject.type}}</view>
+      <view>费用：{{subject.price}}</view>
+    </view>
+  </view>
+  <view >最大人数:{{subject.maxNum}}</view>
+  <view >报名人数:{{subject.nowNum}}</view>
+  <!-- 评价 -->
+  <view class="comment-container">简介:
+    <view >
+      {{subject.introduce}}
+    </view>
+  </view>
+  <view wx:if="{{isSchoolManager}}">
+    <van-button size="large" type="danger" bindtap="submit">申报</van-button>
+  </view>
+</view>

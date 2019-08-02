@@ -1,0 +1,45 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/profile/profile",
+    "pages/createSubject/createSubject",
+    "pages/createSchool/createSchool",
+    "pages/chooseSchool/chooseSchool",
+    "pages/modifySchool/modifySchool",
+    "pages/allSubject/allSubject",
+    "pages/subjectInfo/subjectInfo",
+    "pages/typeSubject/typeSubject",
+    "pages/areaSubject/areaSubject",
+    "pages/sponsorSubject/sponsorSubject",
+    "pages/timeSubject/timeSubject"
+  ],
+  "window": {
+    "backgroundColor": "#F6F6F6",
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#000000",
+    "navigationBarTitleText": "轻量信息管理",
+    "navigationBarTextStyle": "white"
+  },
+  "tabBar": {
+    "color": "",
+    "selectedColor": "",
+    "backgroundColor": "",
+    "position": "bottom",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "images/home.png",
+        "selectedIconPath": "images/home_active.png"
+      },{
+        "pagePath": "pages/profile/profile",
+        "text": "我的",
+        "iconPath": "images/me.png",
+        "selectedIconPath": "images/me_active.png"
+      }
+    ]
+  },
+  
+  "sitemapLocation": "sitemap.json"
+}

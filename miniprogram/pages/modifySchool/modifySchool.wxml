@@ -1,0 +1,20 @@
+<!--pages/modifySchool/modifySchool.wxml-->
+<view >学校名称</view>
+<van-field value="{{schoolName}}" placeholder="这里填写学校名称" bind:change="onSchoolNameChange" />
+<view >学校介绍</view>
+<van-field type="textarea" autosize value="{{introduce}}" placeholder="这里填写学校介绍" bind:change="onIntroduceChange" />
+<view >校徽</view>
+<van-button type="warning" bindtap="uploadSchoolBadge">上传校徽</van-button>
+<view>
+    <image class="comment-img" src="{{item}}" wx:for="{{schoolBadge}}" wx:key="{{index}}"></image>
+</view>
+<view >学院</view>
+<view wx:for="{{department}}">{{item}}</view>
+
+<van-button type="warning" bindtap="addDepartmentShow">添加学院</van-button>
+<van-button size="large" type="danger" bindtap="submit">提交修改</van-button>
+<van-popup show="{{ isaddDepartmentShow }}" bind:close="onaddDepartmentClose" position="bottom">
+    <view >添加学院</view>
+    <van-field type="textarea" autosize value="" placeholder="这里填写学院" bind:change="addDepartmentChange" />
+    <van-button size="large" type="danger" bindtap="addDepartmentSubmit">添加学院</van-button>
+</van-popup>

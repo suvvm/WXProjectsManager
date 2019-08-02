@@ -1,0 +1,65 @@
+<swiper class="indexSlide" indicator-dots="true" indicator-color="rgba(0,0,0,.3)" autoplay="false" 
+    current="0" current-item-id="" interval="5000" duration="1000" circular="false" vertical="false" 
+previous-margin="false" next-margin="0px" display-multiple-items="1" skip-hidden-item-layout="false" bindchange="" bindanimationfinish="">
+    <swiper-item class="">
+        <image class="slideImage" src="../../images/1.jpg" mode="scaleToFill" lazy-load="false" binderror="" bindload="">
+        </image>
+    </swiper-item>
+    <swiper-item class="">
+        <image class="slideImage" src="../../images/2.jpg" mode="scaleToFill" lazy-load="false" binderror="" bindload="">
+        </image>
+    </swiper-item>
+    <swiper-item class="">
+        <image class="slideImage" src="../../images/3.jpg" mode="scaleToFill" lazy-load="false" binderror="" bindload="">
+        </image>
+    </swiper-item>
+    <swiper-item class="">
+        <image class="slideImage" src="../../images/4.jpg" mode="scaleToFill" lazy-load="false" binderror="" bindload="">
+        </image>
+    </swiper-item>
+</swiper>
+
+<button  class="subjectBut_1" bindtap="gotoShowAllSubject">
+学校项目总览
+</button>
+<button  class="subjectBut_2" bindtap="gotoShowTypeSubject">
+按种类查看项目
+</button>
+<button  class="subjectBut_2" bindtap="popupAreaChooser">
+按地区查看项目
+</button>
+<button  class="subjectBut_3" bindtap="popupTimesChooser">
+按时间查看项目
+</button>
+<button  class="subjectBut_3">
+按主办查看项目
+</button>
+<button  class="subjectBut_4">
+体验分享
+</button>
+<button  class="subjectBut_5">
+意见反馈
+</button>
+<van-popup show="{{ areaShow }}" bind:close="onAreaClose" position="bottom">
+<van-area area-list="{{ AreaList }}" columns-num="{{ 3 }}" bindconfirm="onAddrConfirm"/>
+    <van-button size="large" type="danger" bindtap="submitArea">提交</van-button>
+</van-popup>
+<van-popup show="{{ timesShow }}" bind:close="onTimeClose" position="bottom">
+    <view>请选择时间</view>
+
+    <view class="section">  
+    <picker mode="time" value="{{time}}" start="00:00" end="23:59" bindchange="bindTimeChange">  
+        <view class="picker">  
+        时间 : {{times}}
+        </view>  
+    </picker>  
+    </view>  
+    <view class="section">  
+    <picker mode="date" value="{{date}}" start="1900-01-01" end="2200-01-01" bindchange="bindDateChange">  
+        <view class="picker">  
+        日期: {{dates}}  
+        </view>  
+    </picker>  
+    </view>  
+    <van-button size="large" type="danger" bindtap="submitTime">提交</van-button>
+</van-popup>

@@ -1,0 +1,57 @@
+<!--pages/createSubject/createSubject.wxml-->
+
+ <view class="comment-container">
+    <view>项目名称</view>
+    <van-field value="" placeholder="这里填写项目名称" bind:change="onSnameChange" />
+    <view>项目简介</view>
+    <van-field type="textarea" autosize value="" placeholder="这里填写项目简介" bind:change="onIntroduceChange" />
+    <view>主办方</view>
+    <van-field value="" placeholder="这里填写主办方" bind:change="onSponsorChange" />
+    <view>开始时间</view>
+
+    <view class="section">  
+    <picker mode="time" value="{{bgtime}}" start="00:00" end="23:59" bindchange="bgbindTimeChange">  
+        <view class="picker">  
+        时间 : {{bgtimes}}
+        </view>  
+    </picker>  
+    </view>  
+    <view class="section">  
+    <picker mode="date" value="{{bgdate}}" start="1900-01-01" end="2200-01-01" bindchange="bgbindDateChange">  
+        <view class="picker">  
+        日期: {{bgdates}}  
+        </view>  
+    </picker>  
+    </view>  
+
+    <view>结束时间</view>
+    <view class="section">  
+    <picker mode="time" value="{{edtime}}" start="00:00" end="23:59" bindchange="edbindTimeChange">  
+        <view class="picker">  
+        时间 : {{edtimes}}
+        </view>  
+    </picker>  
+    </view>  
+    <view class="section">  
+    <picker mode="date" value="{{eddate}}" start="1900-01-01" end="2200-01-01" bindchange="edbindDateChange">  
+        <view class="picker">  
+        日期: {{eddates}}  
+        </view>  
+    </picker>  
+    </view>
+    <view>人数限制</view>
+    <van-field value="" placeholder="这里填写人数" bind:change="onMaxNumChange" />
+    <view>费用</view>
+    <van-field value="" placeholder="这里填写费用" bind:change="onPriceChange" />
+    <van-button type="warning" bindtap="uploadImg">上传图片</van-button>
+    <view>
+      <image class="comment-img" src="{{item}}" wx:for="{{images}}" wx:key="{{index}}"></image>
+    </view>
+    <view >地区(选择后请点击确认)</view>
+    <van-area change="changed" area-list="{{ AreaList }}" columns-num="{{ 3 }}" bindconfirm="onAddrConfirm"/>
+    <view >种类</view>
+    <van-field value="" placeholder="这里填写种类" bind:change="onTypeChange" />
+    <view >学院</view>
+    <van-picker columns="{{ department }}" bind:change="onDepartmentChange" />
+    <van-button size="large" type="danger" bindtap="submit">提交</van-button>
+</view>
