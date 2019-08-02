@@ -75,6 +75,26 @@ Page({
       complete: ()=>{}
     });
   },
+  gotoShowAreaSubject: function () {
+    console.log('前往地区查询')
+    wx.navigateTo({
+      url: '../areaSubject/areaSubject',
+      success: (result)=>{
+      },
+      fail: ()=>{},
+      complete: ()=>{}
+    });
+  },
+  gotoShowTimeSubject: function () {
+    console.log('前往时间查询')
+    wx.navigateTo({
+      url: '../timeSubject/timeSubject',
+      success: (result)=>{
+      },
+      fail: ()=>{},
+      complete: ()=>{}
+    });
+  },
   /**
    * 生命周期函数--监听页面加载
    */

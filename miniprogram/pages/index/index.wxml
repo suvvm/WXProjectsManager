@@ -25,10 +25,10 @@ previous-margin="false" next-margin="0px" display-multiple-items="1" skip-hidden
 <button  class="subjectBut_2" bindtap="gotoShowTypeSubject">
 按种类查看项目
 </button>
-<button  class="subjectBut_2" bindtap="popupAreaChooser">
+<button  class="subjectBut_2" bindtap="gotoShowAreaSubject">
 按地区查看项目
 </button>
-<button  class="subjectBut_3" bindtap="popupTimesChooser">
+<button  class="subjectBut_3" bindtap="gotoShowTimeSubject">
 按时间查看项目
 </button>
 <button  class="subjectBut_3">
