@@ -36,6 +36,15 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    wx.showLoading({
+      title: '加载中',
+      mask: true,
+      success: (result)=>{
+        
+      },
+      fail: ()=>{},
+      complete: ()=>{}
+    });
     wx.cloud.callFunction({
       name:'login'
     }).then(res=>{
@@ -51,18 +60,33 @@ Page({
             schoolName: res2.data[0].schoolName,
             isSchoolManager: true
           })
+          wx.hideLoading();
           app.globalData.isSchoolManager = true
           app.globalData.schoolName = this.data.schoolName
         }).catch(err2=>{
-          console.error(err2);
+          console.log('未找到管理员信息');
+          console.log(err2);
+          db.collection('studentinf').where({
+            _openid: this.data.openid
+          }).get().then(res3 => {
+            this.setData({
+              schoolName: res3.data[0].schoolName,
+              isSchoolManager: false
+            })
+            wx.hideLoading();
+            app.globalData.isSchoolManager = false
+            app.globalData.schoolName = res3.data[0].schoolName
+          }).catch(err3 => {
+            wx.hideLoading();
+            console.error(err3);
+          });
         })
     }).catch(err=>{
+      wx.hideLoading();
       console.error(err);
     });
     //未完成
-    if(!this.data.isSchoolManager){
-      
-    }
+    
   },
 
   /**
