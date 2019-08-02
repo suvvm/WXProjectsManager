@@ -1,4 +1,5 @@
 // pages/subjectInfo/subjectInfo.js
+var util = require('../../utils/util.js');
 const db = wx.cloud.database();
 
 const app = getApp();
@@ -11,7 +12,8 @@ Page({
   data: {
     sid: '',
     subject: {},
-    isSchoolManager: false
+    isSchoolManager: false,
+    couldApply: true
   },
   apply: function () {
     wx.navigateTo({
@@ -59,7 +61,15 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
+    if(this.data.subject.nowNum >= this.data.subject.maxNum){
+      this.setData({
+        couldApply : false
+      })
+    }else if(util.formatTime(new Date()) >= this.data.subject.bgdates + ' ' + this.data.subject.bgtimes){
+      this.setData({
+        couldApply : false
+      })
+    }
   },
 
   /**
