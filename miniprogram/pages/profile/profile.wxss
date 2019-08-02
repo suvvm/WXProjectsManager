@@ -24,3 +24,8 @@
     left: 50%;
     transform: translate(-50%, 270rpx);
   }
+
+  .but-view{
+    margin: 30rpx;
+    text-align: center
+  }

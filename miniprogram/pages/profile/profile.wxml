@@ -15,10 +15,13 @@
   <view>
     欢迎来自{{schoolName}}的管理员！！
   </view>
-  <van-button plain type="primary" bindtap="toModifySchool">管理学校信息</van-button>
-  <van-button plain type="primary">新建项目</van-button>
-  <van-button plain type="primary">审核申请</van-button>
+  <view class="but-view"><van-button plain type="primary" bindtap="toModifySchool">管理学校信息</van-button></view>
+  <view class="but-view"><van-button plain type="primary">新建项目</van-button></view>
+  <view class="but-view"><van-button plain type="primary">审核申请</van-button></view>
 </view>
-<view wx:else>
+<view wx:elif="{{!isSchoolManager}}">
+  <view>
+    欢迎来自{{schoolName}}的学生！！
+  </view>
   <van-button plain type="primary">我的申请</van-button>
 </view>
