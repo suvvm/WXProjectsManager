@@ -33,13 +33,13 @@ Page({
       bgtimes: e.detail.value,
       nowSubject: []
     })
-    for(let i = 0; i < this.data.subject.length; i++){  //无脑暴力有空再优化
-      if(this.data.subject[i].bgdates + this.data.subject[i].bgtimes >= this.data.bgdates + this.data.bgtimes &&
-        this.data.subject[i].eddates + this.data.subject[i].edtimes <= this.data.eddates + this.data.edtimes){
-          this.setData({
-            nowSubject: this.data.nowSubject.concat(this.data.subject[i])
-          })
-        }
+    for (let i = 0; i < this.data.subject.length; i++) {  //无脑暴力有空再优化
+      if (this.data.subject[i].bgdates + this.data.subject[i].bgtimes >= this.data.bgdates + this.data.bgtimes &&
+        this.data.subject[i].eddates + this.data.subject[i].edtimes <= this.data.eddates + this.data.edtimes) {
+        this.setData({
+          nowSubject: this.data.nowSubject.concat(this.data.subject[i])
+        })
+      }
     }
   },
   //  点击开始日期组件确定事件  
@@ -49,13 +49,13 @@ Page({
       bgdates: e.detail.value,
       nowSubject: []
     })
-    for(let i = 0; i < this.data.subject.length; i++){
-      if(this.data.subject[i].bgdates + this.data.subject[i].bgtimes >= this.data.bgdates + this.data.bgtimes &&
-        this.data.subject[i].eddates + this.data.subject[i].edtimes <= this.data.eddates + this.data.edtimes){
-          this.setData({
-            nowSubject: this.data.nowSubject.concat(this.data.subject[i])
-          })
-        }
+    for (let i = 0; i < this.data.subject.length; i++) {
+      if (this.data.subject[i].bgdates + this.data.subject[i].bgtimes >= this.data.bgdates + this.data.bgtimes &&
+        this.data.subject[i].eddates + this.data.subject[i].edtimes <= this.data.eddates + this.data.edtimes) {
+        this.setData({
+          nowSubject: this.data.nowSubject.concat(this.data.subject[i])
+        })
+      }
     }
   },
   //  点击结束时间组件确定事件  
@@ -65,13 +65,13 @@ Page({
       edtimes: e.detail.value,
       nowSubject: []
     })
-    for(let i = 0; i < this.data.subject.length; i++){
-      if(this.data.subject[i].bgdates + this.data.subject[i].bgtimes >= this.data.bgdates + this.data.bgtimes &&
-        this.data.subject[i].eddates + this.data.subject[i].edtimes <= this.data.eddates + this.data.edtimes){
-          this.setData({
-            nowSubject: this.data.nowSubject.concat(this.data.subject[i])
-          })
-        }
+    for (let i = 0; i < this.data.subject.length; i++) {
+      if (this.data.subject[i].bgdates + this.data.subject[i].bgtimes >= this.data.bgdates + this.data.bgtimes &&
+        this.data.subject[i].eddates + this.data.subject[i].edtimes <= this.data.eddates + this.data.edtimes) {
+        this.setData({
+          nowSubject: this.data.nowSubject.concat(this.data.subject[i])
+        })
+      }
     }
   },
   //  点击结束日期组件确定事件  
@@ -81,16 +81,24 @@ Page({
       eddates: e.detail.value,
       nowSubject: []
     })
-    for(let i = 0; i < this.data.subject.length; i++){
-      if(this.data.subject[i].bgdates + this.data.subject[i].bgtimes >= this.data.bgdates + this.data.bgtimes &&
-        this.data.subject[i].eddates + this.data.subject[i].edtimes <= this.data.eddates + this.data.edtimes){
-          this.setData({
-            nowSubject: this.data.nowSubject.concat(this.data.subject[i])
-          })
-        }
+    for (let i = 0; i < this.data.subject.length; i++) {
+      if (this.data.subject[i].bgdates + this.data.subject[i].bgtimes >= this.data.bgdates + this.data.bgtimes &&
+        this.data.subject[i].eddates + this.data.subject[i].edtimes <= this.data.eddates + this.data.edtimes) {
+        this.setData({
+          nowSubject: this.data.nowSubject.concat(this.data.subject[i])
+        })
+      }
     }
   },
-
+  gotoinfo: function (e) {  //根据subjectid打开对应项目的详情页
+    wx.navigateTo({
+      url: `../subjectInfo/subjectInfo?subjectid=${e.target.dataset.subjectid}`,
+      success: (result) => {
+      },
+      fail: () => { },
+      complete: () => { }
+    });
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -144,73 +152,73 @@ Page({
         if (app.globalData.schoolName == '') {
           app.globalData.schoolName = res2.data[0].schoolName
         }
-        if (this.data.schoolName == '') { //若schoolName为空证明之前没有查找到信息，则去studentinf查找信息
-          db.collection('studentinf').where({
-            _openid: this.data.openid
-          }).get().then(res3 => {
-            console.log('获取学生信息');
-            console.log('res3');
-            this.setData({
-              schoolName: res3.data[0].schoolName
-            })
-            app.globalData.isSchoolManager = false
-            app.globalData.schoolName = res3.data[0].schoolName
-            db.collection('subjectInf').where({ //根据从studentinf中查找到的学校名去subjectInf中寻找对应项目
-              schoolName: res3.data[0].schoolName
-            }).get().then(res5 => {
-              console.log("获取项目信息");
-              this.setData({
-                subject: res5.data
-              })
-              for(let i = 0; i < this.data.subject.length; i++){
-                if(this.data.subject[i].bgdates + this.data.subject[i].bgtimes >= this.data.bgdates + this.data.bgtimes &&
-                  this.data.subject[i].eddates + this.data.subject[i].edtimes <= this.data.eddates + this.data.edtimes){
-                    this.setData({
-                      nowSubject: this.data.nowSubject.concat(this.data.subject[i])
-                    })
-                  }
-              }
-              wx.hideLoading();
-            }).catch(err5 => {
-              console.error("获取项目信息失败");
-              wx.hideLoading();
-              console.error(err5);
-            })
-          }).catch(err3 => {
-            console.error("获取学生信息失败");
-            wx.hideLoading();
-            console.error(err3);
-          })
-          wx.hideLoading();
-        } else {
+
+        this.setData({
+          isSchoolManager: true
+        })
+        db.collection('subjectInf').where({ //根据从schoolinf中查找到的学校名去subjectInf中寻找对应项目
+          schoolName: res2.data[0].schoolName
+        }).get().then(res4 => {
+          console.log("获取项目信息");
           this.setData({
-            isSchoolManager: true
+            subject: res4.data
           })
-          db.collection('subjectInf').where({ //根据从schoolinf中查找到的学校名去subjectInf中寻找对应项目
-            schoolName: res2.data[0].schoolName
-          }).get().then(res4 => {
+          for (let i = 0; i < this.data.subject.length; i++) {
+            if (this.data.subject[i].bgdates + this.data.subject[i].bgtimes >= this.data.bgdates + this.data.bgtimes &&
+              this.data.subject[i].eddates + this.data.subject[i].edtimes <= this.data.eddates + this.data.edtimes) {
+              this.setData({
+                nowSubject: this.data.nowSubject.concat(this.data.subject[i])
+              })
+            }
+          }
+          wx.hideLoading();
+        }).catch(err4 => {
+          console.error("获取项目信息失败");
+          console.error(err4);
+          wx.hideLoading();
+        })
+
+      }).catch(err2 => {
+        console.log("获取管理员信息失败");
+        console.log(err2);
+
+        db.collection('studentinf').where({
+          _openid: this.data.openid
+        }).get().then(res3 => {
+          console.log('获取学生信息');
+          console.log('res3');
+          this.setData({
+            schoolName: res3.data[0].schoolName
+          })
+          app.globalData.isSchoolManager = false
+          app.globalData.schoolName = res3.data[0].schoolName
+          db.collection('subjectInf').where({ //根据从studentinf中查找到的学校名去subjectInf中寻找对应项目
+            schoolName: res3.data[0].schoolName
+          }).get().then(res5 => {
             console.log("获取项目信息");
             this.setData({
-              subject: res4.data
+              subject: res5.data
             })
-            for(let i = 0; i < this.data.subject.length; i++){
-              if(this.data.subject[i].bgdates + this.data.subject[i].bgtimes >= this.data.bgdates + this.data.bgtimes &&
-                this.data.subject[i].eddates + this.data.subject[i].edtimes <= this.data.eddates + this.data.edtimes){
-                  this.setData({
-                    nowSubject: this.data.nowSubject.concat(this.data.subject[i])
-                  })
-                }
+            for (let i = 0; i < this.data.subject.length; i++) {
+              if (this.data.subject[i].bgdates + this.data.subject[i].bgtimes >= this.data.bgdates + this.data.bgtimes &&
+                this.data.subject[i].eddates + this.data.subject[i].edtimes <= this.data.eddates + this.data.edtimes) {
+                this.setData({
+                  nowSubject: this.data.nowSubject.concat(this.data.subject[i])
+                })
+              }
             }
             wx.hideLoading();
-          }).catch(err4 => {
+          }).catch(err5 => {
             console.error("获取项目信息失败");
-            console.error(err4);
             wx.hideLoading();
+            console.error(err5);
           })
-        }
-      }).catch(err2 => {
-        console.error("获取管理员信息失败");
-        console.error(err2);
+        }).catch(err3 => {
+          console.error("获取学生信息失败");
+          wx.hideLoading();
+          console.error(err3);
+        })
+
         wx.hideLoading();
       });
     })

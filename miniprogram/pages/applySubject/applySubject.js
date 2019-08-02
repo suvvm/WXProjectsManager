@@ -1,47 +1,17 @@
-// pages/subjectInfo/subjectInfo.js
-const db = wx.cloud.database();
-
-const app =  getApp();
-
+// pages/applySubject/applySubject.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    sid: '',
-    subject: {},
-    isSchoolManager: false
+
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.setData({
-      sid: options.subjectid,
-      isSchoolManager: app.globalData.isSchoolManager
-    })
-    wx.showLoading({
-      title: '加载中',
-      mask: true,
-      success: (result)=>{
-        
-      },
-      fail: ()=>{},
-      complete: ()=>{}
-    });
-    db.collection('subjectInf').doc(
-      options.subjectid
-    ).get().then(res => {
-      console.log(res)
-      this.setData({
-        subject: res.data
-      })
-      wx.hideLoading();
-    }).catch(err => {
-      console.error(err);
-    })
 
   },
 
@@ -49,7 +19,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    
+
   },
 
   /**

@@ -20,7 +20,7 @@
       {{subject.introduce}}
     </view>
   </view>
-  <view wx:if="{{isSchoolManager}}">
-    <van-button size="large" type="danger" bindtap="submit">申报</van-button>
+  <view wx:if="{{!isSchoolManager}}">
+    <van-button size="large" type="danger" bindtap="apply">申报</van-button>
   </view>
 </view>

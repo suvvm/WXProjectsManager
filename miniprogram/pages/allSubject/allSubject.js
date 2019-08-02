@@ -1,6 +1,6 @@
 // pages/allSubject/allSubject.js
 const db = wx.cloud.database();
-var app =  getApp();
+const app = getApp();
 
 Page({
 
@@ -14,12 +14,12 @@ Page({
     isSchoolManager: app.globalData.isSchoolManager
   },
   gotoinfo: function (e) {  //根据subjectid打开对应项目的详情页
-    wx.navigateTo({ 
+    wx.navigateTo({
       url: `../subjectInfo/subjectInfo?subjectid=${e.target.dataset.subjectid}`,
-      success: (result)=>{
+      success: (result) => {
       },
-      fail: ()=>{},
-      complete: ()=>{}
+      fail: () => { },
+      complete: () => { }
     });
   },
   /**
@@ -29,11 +29,11 @@ Page({
     wx.showLoading({
       title: '加载中',
       mask: true,
-      success: (result)=>{
-        
+      success: (result) => {
+
       },
-      fail: ()=>{},
-      complete: ()=>{}
+      fail: () => { },
+      complete: () => { }
     });
     let promiseArr = [];
     //异步处理
@@ -41,27 +41,27 @@ Page({
       this.setData({
         openid: app.globalData.openid
       })
-      if(this.data.openid == ''){
+      if (this.data.openid == '') {
         wx.cloud.callFunction({ //调用登录云函数获取openid
-          name:'login'
-        }).then(res=>{
+          name: 'login'
+        }).then(res => {
           console.log('获取登陆数据完成');
           reslove();
           this.setData({
             openid: res.result.openid
           })
           app.globalData.openid = res.result.openid
-        }).catch(err=>{
+        }).catch(err => {
           console.log('获取登陆数据失败');
           console.error(err);
         });
-      }else{
+      } else {
         reslove();
       }
     }));
     Promise.all(promiseArr).then(res => { //获取openid后执行
       console.log('获取管理员信息');
-      db.collection('schoolinf').where({  //在数据库scho对应openidolinf中查找
+      db.collection('schoolinf').where({  //在数据库schoolinf对应openid中查找
         _openid: this.data.openid
       }).get().then(res2 => {
         console.log('获取管理员信息');
@@ -70,63 +70,58 @@ Page({
           schoolName: res2.data[0].schoolName,
         })
         console.log('管理员为true');
-        if(app.globalData.isSchoolManager != true){
-          app.globalData.isSchoolManager = true
-        }
-        if(app.globalData.schoolName == ''){
+        app.globalData.isSchoolManager = true
+        if (app.globalData.schoolName == '') {
           app.globalData.schoolName = res2.data[0].schoolName
         }
-        if(this.data.schoolName == ''){ //若schoolName为空证明之前没有查找到信息，则去studentinf查找信息
-          db.collection('studentinf').where({
-            _openid: this.data.openid
-          }).get().then(res3 =>{
-            console.log('获取学生信息');
-            console.log('res3');
-            this.setData({
-              schoolName: res3.data[0].schoolName
-            })
-            app.globalData.isSchoolManager = false
-            app.globalData.schoolName = res3.data[0].schoolName
-            db.collection('subjectInf').where({ //根据从studentinf中查找到的学校名去subjectInf中寻找对应项目
-              schoolName: res3.data[0].schoolName
-            }).get().then(res5 => {
-              console.log("获取项目信息");
-              this.setData({
-                subject: res5.data
-              })
-              wx.hideLoading();
-            }).catch(err5 => {
-              console.error("获取项目信息失败");
-              wx.hideLoading();
-              console.error(err5);
-            })
-          }).catch(err3 => {
-            console.error("获取学生信息失败");
-            wx.hideLoading();
-            console.error(err3);
+        this.setData({
+          isSchoolManager: true
+        })
+        db.collection('subjectInf').where({ //根据从schoolinf中查找到的学校名去subjectInf中寻找对应项目
+          schoolName: res2.data[0].schoolName
+        }).get().then(res4 => {
+          console.log("获取项目信息");
+          this.setData({
+            subject: res4.data
           })
           wx.hideLoading();
-        }else{
+        }).catch(err4 => {
+          console.error("获取项目信息失败");
+          console.error(err4);
+          wx.hideLoading();
+        })
+
+      }).catch(err2 => {
+        console.log("获取管理员信息失败");
+        db.collection('studentinf').where({
+          _openid: this.data.openid
+        }).get().then(res3 => {
+          console.log('获取学生信息');
+          console.log('res3');
           this.setData({
-            isSchoolManager: true
+            schoolName: res3.data[0].schoolName
           })
-          db.collection('subjectInf').where({ //根据从schoolinf中查找到的学校名去subjectInf中寻找对应项目
-            schoolName: res2.data[0].schoolName
-          }).get().then(res4 => {
+          app.globalData.isSchoolManager = false
+          app.globalData.schoolName = res3.data[0].schoolName
+          db.collection('subjectInf').where({ //根据从studentinf中查找到的学校名去subjectInf中寻找对应项目
+            schoolName: res3.data[0].schoolName
+          }).get().then(res5 => {
             console.log("获取项目信息");
             this.setData({
-              subject: res4.data
+              subject: res5.data
             })
             wx.hideLoading();
-          }).catch(err4 => {
+          }).catch(err5 => {
             console.error("获取项目信息失败");
-            console.error(err4);
             wx.hideLoading();
+            console.error(err5);
           })
-        }
-      }).catch(err2=>{
-        console.error("获取管理员信息失败");
-        console.error(err2);
+        }).catch(err3 => {
+          console.error("获取学生信息失败");
+          wx.hideLoading();
+          console.error(err3);
+        })
+
         wx.hideLoading();
       });
     })

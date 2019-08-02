@@ -11,7 +11,8 @@
     "pages/typeSubject/typeSubject",
     "pages/areaSubject/areaSubject",
     "pages/sponsorSubject/sponsorSubject",
-    "pages/timeSubject/timeSubject"
+    "pages/timeSubject/timeSubject",
+    "pages/applySubject/applySubject"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",
