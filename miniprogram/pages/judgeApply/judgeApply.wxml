@@ -1,2 +1,11 @@
 <!--pages/judgeApply/judgeApply.wxml-->
-<text>pages/judgeApply/judgeApply.wxml</text>
+<view class="apply" wx:for="{{applys}}" wx:key="{{index}}">
+    <view class="apply-inf">
+        <view >申请人:{{item.studentName}}</view>
+        <view >申请项目:{{item.subject.sname}}</view>
+    </view>
+    <view class="but-box">
+        <button data-applyid="{{item._id}}" class="apply-to" bindtap="judgeDepartmentFile">审批学院文件</button>
+        <button data-applyid="{{item._id}}" class="apply-to" bindtap="judgeSchoolFile">审批学校文件</button>
+    </view>
+</view>

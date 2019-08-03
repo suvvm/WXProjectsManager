@@ -1,1 +1,23 @@
 /* pages/judgeApply/judgeApply.wxss */
+.apply{
+    height: 200rpx;
+    display: flex;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.apply-inf{
+    width: 450rpx;
+}
+.but-box{
+    width: 300rpx;
+}
+.apply-to{
+    margin-left: 20rpx;
+    margin-top: 30rpx;
+    height: 60rpx;
+    background: #e54847;
+    color: #ffffff;
+    font-size: 26rpx;
+    width: 290rpx;
+}
