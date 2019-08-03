@@ -1,0 +1,14 @@
+<!-- pages/myApply/myApply.wxml -->
+<view class="apply" wx:for="{{applys}}" key="{{index}}">
+    <image class="apply-img" src="{{item.subject.fileIds[0]}}" mode="aspectFit" lazy-load="false" binderror="" bindload=""></image>
+    <view class="apply-inf">
+        <view>申请项目: </view>
+        <view>{{item.subject.sname}}</view>
+        <view>申请院校: </view>
+        <view>{{item.schoolName}}</view>        
+    </view>
+    <view class="but-box">
+        <button data-applyid="{{item._id}}" bindtap="modifyApply" class="apply-to">修改信息</button>
+        <button data-applyid="{{item._id}}" bindtap="lookApply"  class="apply-to">申请状态</button>
+    </view>
+</view>
