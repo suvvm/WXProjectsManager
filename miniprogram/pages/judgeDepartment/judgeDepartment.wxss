@@ -1,1 +1,4 @@
 /* pages/judgeDepartment/judgeDepartment.wxss */
+.but{
+    margin-left: 110rpx;
+}
