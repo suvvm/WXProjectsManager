@@ -11,9 +11,10 @@ Page({
     openid: '',
     applys: []
   },
-  judgeDepartmentFile: function () {
+  
+  judgeDepartmentFile: function (e) {
     wx.navigateTo({
-      url: `../judgeSchool/judgeSchool?applyid=${e.target.dataset.applyid}`,
+      url: `../judgeDepartment/judgeDepartment?applyid=${e.target.dataset.applyid}`,
       success: (result) => {
 
       },
@@ -21,9 +22,10 @@ Page({
       complete: () => { }
     });
   },
-  judgeSchoolFile: function () {
+
+  judgeSchoolFile: function (e) {
     wx.navigateTo({
-      url: `../judgeDepartment/judgeDepartment?applyid=${e.target.dataset.applyid}`,
+      url: `../judgeSchool/judgeSchool?applyid=${e.target.dataset.applyid}`,
       success: (result) => {
 
       },
@@ -59,7 +61,7 @@ Page({
     })
   },
   
-  **
+  /**
   * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
