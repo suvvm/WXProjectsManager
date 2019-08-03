@@ -1,5 +1,5 @@
 // pages/judgeApply/judgeApply.js
-const app =  getApp();
+const app = getApp();
 const db = wx.cloud.database();
 
 Page({
@@ -11,6 +11,26 @@ Page({
     openid: '',
     applys: []
   },
+  judgeDepartmentFile: function () {
+    wx.navigateTo({
+      url: `../judgeSchool/judgeSchool?applyid=${e.target.dataset.applyid}`,
+      success: (result) => {
+
+      },
+      fail: () => { },
+      complete: () => { }
+    });
+  },
+  judgeSchoolFile: function () {
+    wx.navigateTo({
+      url: `../judgeDepartment/judgeDepartment?applyid=${e.target.dataset.applyid}`,
+      success: (result) => {
+
+      },
+      fail: () => { },
+      complete: () => { }
+    });
+  },
 
   /**
    * 生命周期函数--监听页面加载
@@ -19,11 +39,11 @@ Page({
     wx.showLoading({
       title: '加载中',
       mask: true,
-      success: (result)=>{
-        
+      success: (result) => {
+
       },
-      fail: ()=>{},
-      complete: ()=>{}
+      fail: () => { },
+      complete: () => { }
     });
     this.setData({
       openid: app.globalData.openid,
@@ -33,35 +53,14 @@ Page({
         applys: res.data
       })
       wx.hideLoading();
-    }).catch(err =>{
+    }).catch(err => {
       console.err(err);
       wx.hideLoading();
     })
   },
-  judgeDepartmentFile: function (){
-    wx.navigateTo({
-      url: `../judgeSchool/judgeSchool?applyid=${e.target.dataset.applyid}`,
-      success: (result)=>{
-        
-      },
-      fail: ()=>{},
-      complete: ()=>{}
-    });
-  },
-  judgeSchoolFile: function (){
-    wx.navigateTo({
-      url: `../judgeDepartment/judgeDepartment?applyid=${e.target.dataset.applyid}`,
-      success: (result)=>{
-        
-      },
-      fail: ()=>{},
-      complete: ()=>{}
-    });
-  },
-
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
+  
+  **
+  * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
 
