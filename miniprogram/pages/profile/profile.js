@@ -38,7 +38,9 @@ Page({
     })
   },
   applyWork: function() {
-
+    wx.navigateTo({
+      url: '../judgeApply/judgeApply'
+    })
   },
   myApply: function(){
     wx.navigateTo({
