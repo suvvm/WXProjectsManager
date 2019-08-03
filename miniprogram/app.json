@@ -7,13 +7,17 @@
     "pages/chooseSchool/chooseSchool",
     "pages/modifySchool/modifySchool",
     "pages/modifySubject/modifySubject",
+    "pages/modifyApply/modifyApply",
+    "pages/myApply/myApply",
     "pages/allSubject/allSubject",
     "pages/subjectInfo/subjectInfo",
     "pages/typeSubject/typeSubject",
     "pages/areaSubject/areaSubject",
     "pages/sponsorSubject/sponsorSubject",
     "pages/timeSubject/timeSubject",
-    "pages/applySubject/applySubject"
+    "pages/applySubject/applySubject",
+    "pages/applyInfo/applyInfo"
+
   ],
   "window": {
     "backgroundColor": "#F6F6F6",
