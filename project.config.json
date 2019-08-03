@@ -33,7 +33,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 14,
+			"current": 15,
 			"list": [
 				{
 					"id": -1,
@@ -136,6 +136,13 @@
 					"id": -1,
 					"name": "我的申请",
 					"pathName": "pages/myApply/myApply",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "项目详情",
+					"pathName": "pages/judgeApply/judgeApply",
 					"query": "",
 					"scene": null
 				}

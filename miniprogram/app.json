@@ -17,7 +17,9 @@
     "pages/timeSubject/timeSubject",
     "pages/applySubject/applySubject",
     "pages/applyInfo/applyInfo",
-    "pages/judgeApply/judgeApply"
+    "pages/judgeApply/judgeApply",
+    "pages/judgeSchool/judgeSchool",
+    "pages/judgeDepartment/judgeDepartment"
 
   ],
   "window": {
