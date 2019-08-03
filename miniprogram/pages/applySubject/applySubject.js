@@ -19,18 +19,6 @@ Page({
     schoolApplyFile: [],
     schoolApplyFileId: []
   },
-  onStudentNameChange: function (e) {
-    console.log(e.detail);
-    this.setData({
-      studentName: e.detail
-    })
-  },
-  onStudentIdChange: function (e) {
-    console.log(e.detail);
-    this.setData({
-      studentId: e.detail
-    })
-  },
   uploadDepartmentApplyFile: function(){
     wx.chooseImage({
       count: 1,
@@ -191,6 +179,8 @@ Page({
     }).get().then(res => {
       console.log(res)
       this.setData({
+        studentId: res.data[0].studentId,
+        studentName: res.data[0].studentName,
         schoolName: res.data[0].schoolName,
         department: res.data[0].myDepartment
       })

@@ -1,8 +1,6 @@
 <!--pages/applySubject/applySubject.wxml-->
-<view >姓名</view>
-<van-field value="" placeholder="这里填写姓名" bind:change="onStudentNameChange" />
-<view >学号</view>
-<van-field value="" placeholder="这里填写学号" bind:change="onStudentIdChange" />
+<view >姓名:{{studentName}}</view>
+<view >学号:{{studentId}}</view>
 <view >学校:{{schoolName}}</view>
 <view >学院:{{department}}</view>
 <view >申请项目:{{subject.sname}}</view>
