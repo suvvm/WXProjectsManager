@@ -1,4 +1,9 @@
 <!--pages/chooseSchool/chooseSchool.wxml-->
 <van-picker columns="{{ school }}" bind:change="onSchoolNameChange" />
 <van-picker columns="{{ department }}" bind:change="onDepartmentChange" />
+<view >姓名</view>
+<van-field value="" placeholder="这里填写姓名" bind:change="onStudentNameChange" />
+<view >学号</view>
+<van-field value="" placeholder="这里填写学号" bind:change="onStudentIdChange" />
+
 <van-button size="large" type="danger" bindtap="submit">提交</van-button>

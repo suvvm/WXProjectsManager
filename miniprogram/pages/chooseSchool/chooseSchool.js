@@ -1,18 +1,20 @@
 // pages/chooseSchool/chooseSchool.js
 const db = wx.cloud.database();
-var app =  getApp();
+var app = getApp();
 Page({
-  
+
   /**
    * 页面的初始数据
    */
   data: {
     school: ['无'],
-    schoolid:['null'],
+    schoolid: ['null'],
     mySchoolName: '',
     department: ['无'],
     myDepartment: '',
-    openid: ''
+    openid: '',
+    studentId: '',
+    studentName: ''
   },
   onSchoolNameChange: function (e) {  //监听校名的改变对学院进行改变
     this.setData({
@@ -20,15 +22,15 @@ Page({
     })
     console.log(e.detail.value);
     let sid = 0;  //记录当前学校记录对应id（多此一举有时间再优化，没时间就不干了）
-    for(let i = 0; i < this.data.school.length; i++){
-      if(this.data.school[i] == this.data.mySchoolName){
+    for (let i = 0; i < this.data.school.length; i++) {
+      if (this.data.school[i] == this.data.mySchoolName) {
         sid = i;
       }
     }
     console.log(sid);
     console.log(this.data.schoolid[sid]);
     // 在schoolinf中找到对应学校信息并对学院数组进行赋值
-    db.collection('schoolinf').doc(this.data.schoolid[sid]).get().then(res=>{
+    db.collection('schoolinf').doc(this.data.schoolid[sid]).get().then(res => {
       console.log(res);
       this.setData({
         department: ['无']
@@ -37,29 +39,43 @@ Page({
       this.setData({
         department: this.data.department.concat(res.data.department)
       })
-    }).catch(err=>{
+    }).catch(err => {
       console.error(err);
     });
-    
+
   },
   onDepartmentChange: function (e) {  //根据选择的学院对myDepartment进行赋值
     this.setData({
       myDepartment: e.detail.value
     })
   },
+  onStudentNameChange: function (e) {
+    console.log(e.detail);
+    this.setData({
+      studentName: e.detail
+    })
+  },
+  onStudentIdChange: function (e) {
+    console.log(e.detail);
+    this.setData({
+      studentId: e.detail
+    })
+  },
   submit: function () { //提交
     wx.showLoading({
       title: '提交中',
       mask: true,
-      success: (result)=>{
-        
+      success: (result) => {
+
       },
-      fail: ()=>{},
-      complete: ()=>{}
+      fail: () => { },
+      complete: () => { }
     });
     console.log(this.data);
     db.collection('studentinf').add({ //向studentInf中提交信息
       data: {
+        studentName: this.data.studentName,
+        studentId: this.data.studentId,
         schoolName: this.data.mySchoolName,
         myDepartment: this.data.myDepartment,
       }
@@ -72,10 +88,10 @@ Page({
         image: '',
         duration: 1500,
         mask: false,
-        success: (result)=>{
-      },
-        fail: ()=>{},
-        complete: ()=>{}
+        success: (result) => {
+        },
+        fail: () => { },
+        complete: () => { }
       });
     }).catch(err => {
       console.error(err);
@@ -86,10 +102,10 @@ Page({
         image: '',
         duration: 1500,
         mask: false,
-        success: (result)=>{        
+        success: (result) => {
         },
-        fail: ()=>{},
-        complete: ()=>{}
+        fail: () => { },
+        complete: () => { }
       });
     })
   },
@@ -97,26 +113,26 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    db.collection('schoolinf').get().then(res=>{  //获取学校信息
+    db.collection('schoolinf').get().then(res => {  //获取学校信息
       console.log(res);
-      for(let i = 0; i < res.data.length; i++){
+      for (let i = 0; i < res.data.length; i++) {
         this.setData({
           school: this.data.school.concat(res.data[i].schoolName),
           schoolid: this.data.schoolid.concat(res.data[i]._id)
         })
       }
-    }).catch(err=>{
+    }).catch(err => {
       console.error(err);
     });
-    if(this.data.openid == ''){
+    if (this.data.openid == '') {
       wx.cloud.callFunction({
-        name:'login'
-      }).then(res=>{
+        name: 'login'
+      }).then(res => {
         this.setData({
           openid: res.result.openid
         })
         app.globalData.openid = res.result.openid
-      }).catch(err=>{
+      }).catch(err => {
         console.error(err);
       });
     }
