@@ -1,1 +1,4 @@
 /* pages/judgeSchool/judgeSchool.wxss */
+.but{
+    margin-left: 110rpx;
+}
