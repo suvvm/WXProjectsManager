@@ -16,7 +16,8 @@
     "pages/sponsorSubject/sponsorSubject",
     "pages/timeSubject/timeSubject",
     "pages/applySubject/applySubject",
-    "pages/applyInfo/applyInfo"
+    "pages/applyInfo/applyInfo",
+    "pages/judgeApply/judgeApply"
 
   ],
   "window": {
