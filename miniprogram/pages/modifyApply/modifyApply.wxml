@@ -1,2 +1,18 @@
 <!--pages/modifyApply/modifyApply.wxml-->
-<text>pages/modifyApply/modifyApply.wxml</text>
+<view >姓名:{{studentName}}</view>
+<view >学号:{{studentId}}</view>
+<view >学校:{{schoolName}}</view>
+<view >学院:{{department}}</view>
+<view >项目:{{subject.sname}}</view>
+<image src="{{subject.fileIds[0]}}" mode="aspectFit" lazy-load="false" binderror="" bindload=""></image>
+<view >学院申请文件</view>
+<van-button type="warning" bindtap="uploadDepartmentApplyFile">上传文件</van-button>
+<view>
+    <image src="{{departmentApplyFile[0]}}" wx:for="{{departmentApplyFile}}" wx:key="{{index}}"></image>
+</view>
+<view >学校申请文件</view>
+<van-button type="warning" bindtap="uploadSchoolApplyFile">上传文件</van-button>
+<view>
+    <image src="{{schoolApplyFile[0]}}" wx:for="{{schoolApplyFile}}" wx:key="{{index}}"></image>
+</view>
+<van-button size="large" type="danger" bindtap="submit">提交</van-button>
