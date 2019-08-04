@@ -145,6 +145,14 @@ Page({
             this.setData({
               subject: res5.data
             })
+            for (let i = 0; i < res5.data.length; i++) {  //获取所有sponsor
+              this.setData({
+                sponsors: this.data.sponsors.concat(res5.data[i].sponsor)
+              })
+            }
+            this.setData({
+              sponsors: Array.from(new Set(this.data.sponsors)) //去重
+            })
             wx.hideLoading();
           }).catch(err5 => {
             console.error("获取项目信息失败");

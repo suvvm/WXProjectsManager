@@ -1,2 +1,11 @@
 <!--pages/applyInfo/applyInfo.wxml-->
-<text>pages/applyInfo/applyInfo.wxml</text>
+<view >姓名:{{studentName}}</view>
+<view >学号:{{studentId}}</view>
+<view >申请项目:{{subject.sname}}</view>
+<view >学校:{{schoolName}}</view>
+<view >学院:{{department}}</view>
+<view >审核状态:</view>
+<view wx:if="{{!isbegining}}">待审核</view>
+<view wx:elif="{{!isDepartmentAccept}}">审核未通过: 学院审核未通过，请修改学院审核信息</view>
+<view wx:elif="{{!isSchoolAccepted}}">审核未通过: 学院审核未通过，请修改学校审核信息</view>
+<view wx:else>恭喜，您的审核已通过</view>

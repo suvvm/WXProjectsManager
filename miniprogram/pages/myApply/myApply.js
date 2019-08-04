@@ -20,7 +20,7 @@ Page({
       complete: () => { }
     });
   },
-  lookApply: function () {
+  lookApply: function (e) {
     wx.navigateTo({
       url: `../applyInfo/applyInfo?applyid=${e.target.dataset.applyid}`,
       success: (result) => {

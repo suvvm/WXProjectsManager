@@ -95,6 +95,16 @@ Page({
       complete: ()=>{}
     });
   },
+  gotoShowSponsorSubject: function () {
+    console.log('前往时间查询')
+    wx.navigateTo({
+      url: '../sponsorSubject/sponsorSubject',
+      success: (result)=>{
+      },
+      fail: ()=>{},
+      complete: ()=>{}
+    });
+  },
   /**
    * 生命周期函数--监听页面加载
    */

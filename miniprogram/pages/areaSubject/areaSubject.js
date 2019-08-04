@@ -1,6 +1,5 @@
 // pages/areaSubject/areaSubject.js
-var app = getApp();
-
+const app = getApp();
 const db = wx.cloud.database();
 Page({
 
@@ -23,10 +22,10 @@ Page({
     });
   },
   onAddrConfirm: function (e) {
-    console.log(e.detail.values);
     this.setData({
       location: e.detail.values
     })
+    console.log('地区信息');
     console.log(e.detail.values);
     db.collection('subjectInf').where({
       location: e.detail.values

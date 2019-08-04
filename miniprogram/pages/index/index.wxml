@@ -31,7 +31,7 @@ previous-margin="false" next-margin="0px" display-multiple-items="1" skip-hidden
 <button  class="subjectBut_3" bindtap="gotoShowTimeSubject">
 按时间查看项目
 </button>
-<button  class="subjectBut_3" bindtap="gotoShowTimeSubject">
+<button  class="subjectBut_3" bindtap="gotoShowSponsorSubject">
 按主办查看项目
 </button>
 <button  class="subjectBut_4">

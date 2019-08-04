@@ -81,7 +81,6 @@ Page({
       } else {
         reslove();
       }
-
     }));
     Promise.all(promiseArr).then(res => { //获取openid后执行
       db.collection('schoolinf').where({  //在数据库scho对应openidolinf中查找
@@ -128,7 +127,6 @@ Page({
       }).catch(err2 => {
         console.log("获取管理员信息失败");
         console.log(err2);
-
         db.collection('studentinf').where({
           _openid: this.data.openid
         }).get().then(res3 => {
@@ -137,6 +135,7 @@ Page({
           this.setData({
             schoolName: res3.data[0].schoolName
           })
+          
           app.globalData.isSchoolManager = false
           app.globalData.schoolName = res3.data[0].schoolName
           db.collection('subjectInf').where({ //根据从studentinf中查找到的学校名去subjectInf中寻找对应项目
@@ -145,6 +144,14 @@ Page({
             console.log("获取项目信息");
             this.setData({
               subject: res5.data
+            })
+            for (let i = 0; i < res5.data.length; i++) {  //获取所有type
+              this.setData({
+                types: this.data.types.concat(res5.data[i].type)
+              })
+            }
+            this.setData({
+              types: Array.from(new Set(this.data.types)) //去重
             })
             wx.hideLoading();
           }).catch(err5 => {
