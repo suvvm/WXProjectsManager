@@ -1,0 +1,4 @@
+<!--pages/suggest/suggest.wxml-->
+<view >内容</view>
+<van-field type="textarea" autosize value="" placeholder="这里填写内容" bind:change="onChange" />
+<van-button size="large" type="danger" bindtap="submit">提交</van-button>
