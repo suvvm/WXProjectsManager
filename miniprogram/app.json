@@ -19,7 +19,9 @@
     "pages/applyInfo/applyInfo",
     "pages/judgeApply/judgeApply",
     "pages/judgeSchool/judgeSchool",
-    "pages/judgeDepartment/judgeDepartment"
+    "pages/judgeDepartment/judgeDepartment",
+    "pages/suggest/suggest",
+    "pages/appreciate/appreciate"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",
