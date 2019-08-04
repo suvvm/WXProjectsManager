@@ -34,10 +34,10 @@ previous-margin="false" next-margin="0px" display-multiple-items="1" skip-hidden
 <button  class="subjectBut_3" bindtap="gotoShowSponsorSubject">
 按主办查看项目
 </button>
-<button  class="subjectBut_4">
-体验分享
+<button  class="subjectBut_4" bindtap="appreciateDevelopers">
+打赏作者
 </button>
-<button  class="subjectBut_5">
+<button  class="subjectBut_5" bindtap="gotoSuggest">
 意见反馈
 </button>
 <van-popup show="{{ areaShow }}" bind:close="onAreaClose" position="bottom">

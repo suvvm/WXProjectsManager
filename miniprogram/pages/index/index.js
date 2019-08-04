@@ -105,6 +105,26 @@ Page({
       complete: ()=>{}
     });
   },
+  gotoSuggest: function () {
+    console.log('前往意见反馈')
+    wx.navigateTo({
+      url: '../suggest/suggest',
+      success: (result)=>{
+      },
+      fail: ()=>{},
+      complete: ()=>{}
+    });
+  },
+  appreciateDevelopers: function () {
+    console.log('打赏')
+    wx.navigateTo({
+      url: '../appreciate/appreciate',
+      success: (result)=>{
+      },
+      fail: ()=>{},
+      complete: ()=>{}
+    });
+  },
   /**
    * 生命周期函数--监听页面加载
    */
