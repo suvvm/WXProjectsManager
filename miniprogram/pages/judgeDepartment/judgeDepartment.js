@@ -9,7 +9,9 @@ Page({
    */
   data: {
     applyid: '',
-    apply: {}
+    apply: {},
+    isDepartmentAccept: false,
+    isSchoolAccepted: false
   },
   accepted: function () {
     wx.showLoading({
@@ -33,11 +35,11 @@ Page({
             isSchoolAccepted: false
           }
         }).then(res2 => {
-          wx.hideLoading();
           console.log("添加审核信息成功")
           wx.navigateBack({
             delta: 1
           });
+          wx.hideLoading();
         }).catch(err2 => {
           console.log("添加审核信息败亡")
           wx.hideLoading();
@@ -50,11 +52,48 @@ Page({
               isDepartmentAccept: true,
             }
           }).then(res3 => {
+            this.setData({
+              isDepartmentAccept: true
+            })
             console.log("修改审核信息成功")
-            wx.navigateBack({
-              delta: 1
-            });
-            wx.hideLoading();
+            if(this.data.isSchoolAccepted && this.data.isDepartmentAccept){
+              db.collection('applyinf').doc(
+                this.data.applyid
+                ).get().then(res2 => {
+                  db.collection('subjectInf').doc(
+                    res2.data.subjectId
+                  ).get().then(res3 => {
+                    console.log(res3);
+                    var temp = parseInt(res3.data.nowNum);
+                    db.collection('subjectInf').doc(
+                      res2.data.subjectId
+                    ).update({
+                      data: {
+                        nowNum: (temp + 1).toString()
+                      }
+                    }).then(res4 => {
+                      wx.navigateBack({
+                        delta: 1
+                      });
+                      wx.hideLoading();
+                    }).catch(err4 => {
+                      console.log(err4)
+                      wx.hideLoading();
+                    })
+                  }).catch(err3 => {
+                    console.error(err3)
+                    wx.hideLoading();
+                  })
+              }).catch(err2 => {
+                console.error(err2);
+                wx.hideLoading();
+              })
+            }else{
+              wx.navigateBack({
+                delta: 1
+              });
+              wx.hideLoading();
+            }
           }).catch(err3 => {
             console.log("添加审核信息败亡")
             console.error(err3);
@@ -64,6 +103,7 @@ Page({
     }).catch(err => {
       console.log("查找时出现错误");
       console.error(err);
+      wx.hideLoading();
     })
   },
 
@@ -143,6 +183,20 @@ Page({
     ).get().then(res => {
       this.setData({
         apply: res.data
+      })
+      db.collection('isApproval').where({
+        applyid: res.data.applyid
+      }).get().then(res2 => {
+        console.log('初始化审批信息成功');
+        console.log(res2)
+        this.setData({
+          isDepartmentAccept: res2.data[0].isDepartmentAccept,
+          isSchoolAccepted: res2.data[0].isSchoolAccepted
+        })
+        wx.hideLoading();
+      }).catch(err2 => {
+        console.error(err2);
+        wx.hideLoading();
       })
       wx.hideLoading();
     }).catch(err => {

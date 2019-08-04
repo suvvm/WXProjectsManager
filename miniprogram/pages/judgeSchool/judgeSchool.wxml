@@ -3,5 +3,11 @@
 <view >学号:{{apply.studentId}}</view>
 <view >学院:{{apply.department}}</view>
 <image class="" src="{{apply.schoolApplyFileId}}" mode="aspectFit" lazy-load="false" binderror="" bindload=""></image>  
-<van-button class="but" type="primary" bindtap="accepted">批准申请</van-button>
-<van-button class="but" type="info" bindtap="denied">驳回申请</van-button> 
+<view wx:if="{{!isSchoolAccept}}">
+    <van-button class="but" type="primary" bindtap="accepted">批准申请</van-button>
+    <van-button class="but" type="info" bindtap="denied">驳回申请</van-button> 
+</view>
+<view wx:else>
+    <van-button  class="but" disabled type="primary">已批准</van-button>
+    <van-button  class="but" disabled type="info">无法驳回</van-button>
+</view>
