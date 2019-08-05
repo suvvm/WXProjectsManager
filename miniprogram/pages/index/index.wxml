@@ -20,25 +20,32 @@ previous-margin="false" next-margin="0px" display-multiple-items="1" skip-hidden
 </swiper>
 
 <button  class="subjectBut_1" bindtap="gotoShowAllSubject">
-学校项目总览
+    <image class="butimg" src="../../images/all.png" lazy-load="false" binderror="" bindload=""></image>
+    <view class="butv">所有项目</view> 
 </button>
 <button  class="subjectBut_2" bindtap="gotoShowTypeSubject">
-按种类查看项目
+    <image class="butimg" src="../../images/type.png" lazy-load="false" binderror="" bindload=""></image>
+    <view class="butv">按种类查看项目</view> 
 </button>
 <button  class="subjectBut_2" bindtap="gotoShowAreaSubject">
-按地区查看项目
+    <image class="butimg" src="../../images/area2.png" lazy-load="false" binderror="" bindload=""></image>
+    <view class="butv">按地区查看项目</view> 
 </button>
 <button  class="subjectBut_3" bindtap="gotoShowTimeSubject">
-按时间查看项目
+    <image class="butimg" src="../../images/date.png" lazy-load="false" binderror="" bindload=""></image>
+    <view class="butv">按时间查看项目</view>
 </button>
 <button  class="subjectBut_3" bindtap="gotoShowSponsorSubject">
-按主办查看项目
+    <image class="butimg" src="../../images/sponsor.png" lazy-load="false" binderror="" bindload=""></image>
+    <view class="butv">按主办查看项目</view>
 </button>
 <button  class="subjectBut_4" bindtap="appreciateDevelopers">
-打赏作者
+    <image class="butimg" src="../../images/appreciate.png" lazy-load="false" binderror="" bindload=""></image>
+    <view class="butv">打赏作者</view>
 </button>
 <button  class="subjectBut_5" bindtap="gotoSuggest">
-意见反馈
+    <image class="butimg" src="../../images/suggest.png" lazy-load="false" binderror="" bindload=""></image>
+    <view class="butv">意见反馈</view>
 </button>
 <van-popup show="{{ areaShow }}" bind:close="onAreaClose" position="bottom">
 <van-area area-list="{{ AreaList }}" columns-num="{{ 3 }}" bindconfirm="onAddrConfirm"/>

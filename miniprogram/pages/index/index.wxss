@@ -4,6 +4,7 @@
     height: 500rpx;
 }
 .subjectBut_1{
+
     font-size: 30rpx;
     color: #ffffff;
     border-radius: 0rpx;
@@ -14,6 +15,7 @@
     background-color: #4e9adb;
     width: 233rpx;
     height: 347rpx;
+    flex-wrap: wrap;
 }
 .subjectBut_2{
     font-size: 30rpx;
@@ -26,6 +28,7 @@
     background-color:#4e9adb;
     width: 233rpx;
     height: 170rpx;
+    flex-wrap: wrap;
 }
 .subjectBut_3{
     font-size: 30rpx;
@@ -38,6 +41,7 @@
     background-color:#4e9adb;
     width: 233rpx;
     height: 170rpx;
+    flex-wrap: wrap;
 }
 .subjectBut_4{
     font-size: 30rpx;
@@ -50,6 +54,7 @@
     background-color:#4e9adb;
     width: 233rpx;
     height: 170rpx;
+    flex-wrap: wrap;
 }
 .subjectBut_5{
     font-size: 30rpx;
@@ -62,6 +67,7 @@
     background-color:#4e9adb;
     width: 474rpx;
     height: 170rpx;
+    flex-wrap: wrap;
 }
 .indexSlide{
     height: 500rpx;
@@ -70,4 +76,15 @@
     background:#CABBC7;
     margin:20rpx;
     padding:20rpx
+ }
+ .butimg{
+     margin-top: 20rpx;
+    display: flex;
+     width: 180rpx;
+     height: 180rpx;
+ }
+ .butv{
+    margin-left: 30rpx;
+    text-align: center;
+    display: flex;
  }
