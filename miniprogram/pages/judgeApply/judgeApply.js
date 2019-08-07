@@ -11,7 +11,7 @@ Page({
     openid: '',
     applys: []
   },
-  
+  //前往审核学院文件
   judgeDepartmentFile: function (e) {
     wx.navigateTo({
       url: `../judgeDepartment/judgeDepartment?applyid=${e.target.dataset.applyid}`,
@@ -22,7 +22,7 @@ Page({
       complete: () => { }
     });
   },
-
+  //前往审核学校文件
   judgeSchoolFile: function (e) {
     wx.navigateTo({
       url: `../judgeSchool/judgeSchool?applyid=${e.target.dataset.applyid}`,
@@ -50,7 +50,7 @@ Page({
     this.setData({
       openid: app.globalData.openid,
     })
-    db.collection('applyinf').get().then(res => {
+    db.collection('applyinf').get().then(res => { //查找申请信息
       this.setData({
         applys: res.data
       })
@@ -60,7 +60,7 @@ Page({
       wx.hideLoading();
     })
   },
-  
+
   /**
   * 生命周期函数--监听页面初次渲染完成
    */

@@ -1,5 +1,5 @@
 // pages/createSubject/createSubject.js
-const app =  getApp();
+const app = getApp();
 
 const db = wx.cloud.database();
 
@@ -29,12 +29,13 @@ Page({
     images: [],
     fileIds: []
   },
-  onDepartmentChange: function (e){
+  //  学院变更
+  onDepartmentChange: function (e) {
     this.setData({
       myDepartment: e.detail.value
     })
   },
-    //  点击开始时间组件确定事件  
+  //  点击开始时间组件确定事件  
   bgbindTimeChange: function (e) {
     console.log("肥豪肥")
     this.setData({
@@ -43,13 +44,13 @@ Page({
   },
   //  点击开始日期组件确定事件  
   bgbindDateChange: function (e) {
-     console.log(e.detail.value)
+    console.log(e.detail.value)
     this.setData({
       bgdates: e.detail.value
     })
   },
-   //  点击结束时间组件确定事件  
-   edbindTimeChange: function (e) {
+  //  点击结束时间组件确定事件  
+  edbindTimeChange: function (e) {
     console.log("瘦豪瘦")
     this.setData({
       edtimes: e.detail.value
@@ -94,7 +95,7 @@ Page({
     })
   },
   //  费用变更
-  onPriceChange: function (e){
+  onPriceChange: function (e) {
     this.setData({
       price: e.detail
     })
@@ -109,17 +110,17 @@ Page({
   uploadImg: function (e) {
     wx.chooseImage({
       count: 9,
-      sizeType: ['original','compressed'],
-      sourceType: ['album','camera'],
-      success: (result)=>{
+      sizeType: ['original', 'compressed'],
+      sourceType: ['album', 'camera'],
+      success: (result) => {
         const tempFilePaths = result.tempFilePaths
         console.log(tempFilePaths)
         this.setData({
           images: this.data.images.concat(tempFilePaths)
         })
       },
-      fail: ()=>{},
-      complete: ()=>{}
+      fail: () => { },
+      complete: () => { }
     });
   },
   // 提交
@@ -127,20 +128,20 @@ Page({
     wx.showLoading({
       title: '提交中',
       mask: true,
-      success: (result)=>{
-        
+      success: (result) => {
+
       },
-      fail: ()=>{},
-      complete: ()=>{}
+      fail: () => { },
+      complete: () => { }
     });
     console.log(this.data);
     let promiseArr = [];
-    for(let i = 0; i < this.data.images.length; i++){ //上传项目相关图片
+    for (let i = 0; i < this.data.images.length; i++) { //上传项目相关图片
       promiseArr.push(new Promise((reslove, reject) => {
         let item = this.data.images[i];
         let suffix = /\.\w+$/.exec(item)[0];
         wx.cloud.uploadFile({
-          cloudPath: 'subjectImgs'+ '/' + new Date().getTime() + suffix,
+          cloudPath: 'subjectImgs' + '/' + new Date().getTime() + suffix,
           filePath: item,
           success: (result) => {
             console.log(result.fileID)
@@ -149,7 +150,7 @@ Page({
             });
             reslove();
           },
-          fail: ()=>{console.error}
+          fail: () => { console.error }
         });
       }));
     }
@@ -181,11 +182,11 @@ Page({
           image: '',
           duration: 1500,
           mask: false,
-          success: (result)=>{
-            
+          success: (result) => {
+
           },
-          fail: ()=>{},
-          complete: ()=>{}
+          fail: () => { },
+          complete: () => { }
         });
       }).catch(err => {
         console.error(err);
@@ -196,11 +197,11 @@ Page({
           image: '',
           duration: 1500,
           mask: false,
-          success: (result)=>{
-            
+          success: (result) => {
+
           },
-          fail: ()=>{},
-          complete: ()=>{}
+          fail: () => { },
+          complete: () => { }
         });
       })
     });
@@ -213,18 +214,18 @@ Page({
     promiseArr.push(new Promise((reslove, reject) => {  //先行获取openid
       this.setData({
         openid: app.globalData.openid
-        
+
       })
-      if(this.data.openid == ''){
+      if (this.data.openid == '') {
         wx.cloud.callFunction({
-          name:'login'
-        }).then(res=>{
+          name: 'login'
+        }).then(res => {
           this.setData({
             openid: res.result.openid
           })
           reslove();
           app.globalData.openid = res.result.openid
-        }).catch(err=>{
+        }).catch(err => {
           console.error(err);
         });
       }
@@ -237,24 +238,24 @@ Page({
         this.setData({
           schoolName: res2.data[0].schoolName
         })
-        for(let i = 0; i < res2.data[0].department.length; i++){
+        for (let i = 0; i < res2.data[0].department.length; i++) {
           this.setData({
             department: this.data.department.concat(res2.data[0].department[i]),
           })
         }
-      }).catch(err2=>{
+      }).catch(err2 => {
         console.error(err2);
       });
     })
-    
+
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    
-    
+
+
   },
 
   /**

@@ -13,22 +13,22 @@ Page({
     isDepartmentAccept: false,
     isSchoolAccepted: false
   },
-  accepted: function () {
+  accepted: function () { //批准
     wx.showLoading({
       title: '处理中',
       mask: true,
-      success: (result)=>{
-        
+      success: (result) => {
+
       },
-      fail: ()=>{},
-      complete: ()=>{}
+      fail: () => { },
+      complete: () => { }
     });
-    db.collection('isApproval').where({
+    db.collection('isApproval').where({ //根据applyid查找对应审核信息
       applyid: this.data.applyid
     }).get().then(res => {
       console.log(res);
-      if(res.data.length == 0){
-        db.collection('isApproval').add({  
+      if (res.data.length == 0) {
+        db.collection('isApproval').add({   //若无信息则添加审核记录
           data: {
             applyid: this.data.applyid,
             isDepartmentAccept: true,
@@ -36,7 +36,7 @@ Page({
           }
         }).then(res2 => {
           console.log("添加审核信息成功")
-          wx.navigateBack({
+          wx.navigateBack({ //返回上一页
             delta: 1
           });
           wx.hideLoading();
@@ -45,8 +45,8 @@ Page({
           wx.hideLoading();
           console.log(err2);
         })
-      }else{
-        db.collection('isApproval').doc(
+      } else {
+        db.collection('isApproval').doc(  //更新现有记录
           res.data[0]._id).update({
             data: {
               isDepartmentAccept: true,
@@ -56,39 +56,39 @@ Page({
               isDepartmentAccept: true
             })
             console.log("修改审核信息成功")
-            if(this.data.isSchoolAccepted && this.data.isDepartmentAccept){
+            if (this.data.isSchoolAccepted && this.data.isDepartmentAccept) { //更新项目报名人数
               db.collection('applyinf').doc(
                 this.data.applyid
-                ).get().then(res2 => {
+              ).get().then(res2 => {
+                db.collection('subjectInf').doc(
+                  res2.data.subjectId
+                ).get().then(res3 => {
+                  console.log(res3);
+                  var temp = parseInt(res3.data.nowNum);
                   db.collection('subjectInf').doc(
                     res2.data.subjectId
-                  ).get().then(res3 => {
-                    console.log(res3);
-                    var temp = parseInt(res3.data.nowNum);
-                    db.collection('subjectInf').doc(
-                      res2.data.subjectId
-                    ).update({
-                      data: {
-                        nowNum: (temp + 1).toString()
-                      }
-                    }).then(res4 => {
-                      wx.navigateBack({
-                        delta: 1
-                      });
-                      wx.hideLoading();
-                    }).catch(err4 => {
-                      console.log(err4)
-                      wx.hideLoading();
-                    })
-                  }).catch(err3 => {
-                    console.error(err3)
+                  ).update({
+                    data: {
+                      nowNum: (temp + 1).toString()
+                    }
+                  }).then(res4 => {
+                    wx.navigateBack({
+                      delta: 1
+                    });
+                    wx.hideLoading();
+                  }).catch(err4 => {
+                    console.log(err4)
                     wx.hideLoading();
                   })
+                }).catch(err3 => {
+                  console.error(err3)
+                  wx.hideLoading();
+                })
               }).catch(err2 => {
                 console.error(err2);
                 wx.hideLoading();
               })
-            }else{
+            } else {
               wx.navigateBack({
                 delta: 1
               });
@@ -107,22 +107,22 @@ Page({
     })
   },
 
-  denied: function () {
+  denied: function () { //驳回
     wx.showLoading({
       title: '处理中',
       mask: true,
-      success: (result)=>{
-        
+      success: (result) => {
+
       },
-      fail: ()=>{},
-      complete: ()=>{}
+      fail: () => { },
+      complete: () => { }
     });
-    db.collection('isApproval').where({
+    db.collection('isApproval').where({ //基础操作同上
       applyid: this.data.applyid
     }).get().then(res => {
       console.log(res);
-      if(res.data.length == 0){
-        db.collection('isApproval').add({  
+      if (res.data.length == 0) {
+        db.collection('isApproval').add({
           data: {
             applyid: this.data.applyid,
             isDepartmentAccept: false,
@@ -139,7 +139,7 @@ Page({
           wx.hideLoading();
           console.log(err2);
         })
-      }else{
+      } else {
         db.collection('isApproval').doc(
           res.data[0]._id).update({
             data: {
