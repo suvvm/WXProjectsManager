@@ -1,5 +1,5 @@
 // pages/index/index.js
-const app =  getApp();
+const app = getApp();
 
 const db = wx.cloud.database();
 Page({
@@ -19,22 +19,22 @@ Page({
 
   },
   //  关闭地区选择器弹出层
-  onAreaClose: function() {
+  onAreaClose: function () {
     this.setData({ areaShow: false });
   },
   //  显示地区选择器弹出层
-  popupAreaChooser: function(){
+  popupAreaChooser: function () {
     this.setData({ areaShow: true });
   },
   //  地区选择器确认点击事件
-  onAddrConfirm: function(e) {
+  onAddrConfirm: function (e) {
     console.log(e.detail.values);
     this.setData({
       location: e.detail.values
     })
   },
   //  关闭事件选择器弹出层
-  onTimeClose: function() {
+  onTimeClose: function () {
     this.setData({ timesShow: false });
   },
   //  弹出时间选择器弹出层
@@ -49,80 +49,80 @@ Page({
     })
   },
   //  日期选择组件确认事件
-  bindDateChange: function(e) {
+  bindDateChange: function (e) {
     console.log(e.detail.value);
     this.setData({
       dates: e.detail.value
     })
   },
-  gotoShowAllSubject: function(){
+  gotoShowAllSubject: function () {
     wx.navigateTo({
       url: '../allSubject/allSubject',
-      success: (result)=>{
-        
+      success: (result) => {
+
       },
-      fail: ()=>{},
-      complete: ()=>{}
+      fail: () => { },
+      complete: () => { }
     });
   },
   gotoShowTypeSubject: function () {
     console.log('前往种类查询')
     wx.navigateTo({
       url: '../typeSubject/typeSubject',
-      success: (result)=>{
+      success: (result) => {
       },
-      fail: ()=>{},
-      complete: ()=>{}
+      fail: () => { },
+      complete: () => { }
     });
   },
   gotoShowAreaSubject: function () {
     console.log('前往地区查询')
     wx.navigateTo({
       url: '../areaSubject/areaSubject',
-      success: (result)=>{
+      success: (result) => {
       },
-      fail: ()=>{},
-      complete: ()=>{}
+      fail: () => { },
+      complete: () => { }
     });
   },
   gotoShowTimeSubject: function () {
     console.log('前往时间查询')
     wx.navigateTo({
       url: '../timeSubject/timeSubject',
-      success: (result)=>{
+      success: (result) => {
       },
-      fail: ()=>{},
-      complete: ()=>{}
+      fail: () => { },
+      complete: () => { }
     });
   },
   gotoShowSponsorSubject: function () {
     console.log('前往时间查询')
     wx.navigateTo({
       url: '../sponsorSubject/sponsorSubject',
-      success: (result)=>{
+      success: (result) => {
       },
-      fail: ()=>{},
-      complete: ()=>{}
+      fail: () => { },
+      complete: () => { }
     });
   },
   gotoSuggest: function () {
     console.log('前往意见反馈')
     wx.navigateTo({
       url: '../suggest/suggest',
-      success: (result)=>{
+      success: (result) => {
       },
-      fail: ()=>{},
-      complete: ()=>{}
+      fail: () => { },
+      complete: () => { }
     });
   },
   appreciateDevelopers: function () {
     console.log('打赏')
     wx.navigateTo({
       url: '../appreciate/appreciate',
-      success: (result)=>{
+      success: (result) => {
       },
-      fail: ()=>{},
-      complete: ()=>{}
+      fail: () => { },
+      complete: () => { }
     });
   },
   /**
@@ -132,51 +132,51 @@ Page({
     wx.showLoading({
       title: '续命中',
       mask: true,
-      success: (result)=>{
-        
+      success: (result) => {
+
       },
-      fail: ()=>{},
-      complete: ()=>{}
+      fail: () => { },
+      complete: () => { }
     });
     let promiseArr = [];
     promiseArr.push(new Promise((reslove, reject) => {
-      wx.cloud.callFunction({
-        name:'login'
-      }).then(res=>{
+      wx.cloud.callFunction({ //调用云函数login获取用户openid
+        name: 'login'
+      }).then(res => {
         this.setData({
           openid: res.result.openid
         })
-        app.globalData.openid = res.result.openid
-        db.collection('schoolinf').where({
+        app.globalData.openid = res.result.openid //设置全局变量
+        db.collection('schoolinf').where({  //查找数据库schoolinf判断用户是否为学校管理者
           _openid: res.result.openid
-          }).get().then(res2=>{
-            console.log(res2);
-            this.setData({
-              schoolName: res2.data[0].schoolName,
-              isSchoolManager: true
-            })
-            reslove();
-            wx.hideLoading();
-            app.globalData.isSchoolManager = true
-            app.globalData.schoolName = this.data.schoolName
-          }).catch(err2=>{
-            reslove();
-            wx.hideLoading();
-            console.log(err2);
-            app.globalData.isSchoolManager = false
+        }).get().then(res2 => {
+          console.log(res2);
+          this.setData({
+            schoolName: res2.data[0].schoolName,
+            isSchoolManager: true
           })
-      }).catch(err=>{
+          reslove();
+          wx.hideLoading();
+          app.globalData.isSchoolManager = true
+          app.globalData.schoolName = this.data.schoolName
+        }).catch(err2 => {
+          reslove();
+          wx.hideLoading();
+          console.log(err2);
+          app.globalData.isSchoolManager = false
+        })
+      }).catch(err => {
         wx.hideLoading();
         console.error(err);
       });
     }));
-    Promise.all(promiseArr).then(res => {
-      if(!this.data.isSchoolManager){
+    Promise.all(promiseArr).then(res => { //不是管理者则查找对应学生信息
+      if (!this.data.isSchoolManager) {
         db.collection('studentinf').where({
           _openid: this.data.openid
         }).get().then(res => {
           this.setData({
-            schoolName:res.data[0].schoolName
+            schoolName: res.data[0].schoolName
           })
           wx.hideLoading();
         }).catch(err => {
@@ -185,8 +185,7 @@ Page({
         })
       }
     })
-    //未完成
-    
+
   },
 
   /**
