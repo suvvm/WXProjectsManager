@@ -16,18 +16,18 @@ Page({
     location: {},
     activeNames: ['1']
   },
-  onCollapseChange(event) {
+  onCollapseChange(event) { //折叠栏点击
     this.setData({
       activeNames: event.detail
     });
   },
-  onAddrConfirm: function (e) {
+  onAddrConfirm: function (e) { //确认地区
     this.setData({
       location: e.detail.values
     })
     console.log('地区信息');
     console.log(e.detail.values);
-    db.collection('subjectInf').where({
+    db.collection('subjectInf').where({ //确认是查找并加载对应项目数据
       location: e.detail.values
     }).get().then(res => {
       console.log(res)
@@ -122,7 +122,7 @@ Page({
       }).catch(err2 => {
         console.log("获取管理员信息失败");
         console.log(err2);
-        db.collection('studentinf').where({
+        db.collection('studentinf').where({ //查询学生信息
           _openid: this.data.openid
         }).get().then(res3 => {
           console.log('获取学生信息');

@@ -19,57 +19,57 @@ Page({
     schoolApplyFile: [],
     schoolApplyFileId: []
   },
-  uploadDepartmentApplyFile: function(){
+  uploadDepartmentApplyFile: function () {  //上传学院审核信息
     wx.chooseImage({
       count: 1,
-      sizeType: ['original','compressed'],
-      sourceType: ['album','camera'],
-      success: (result)=>{
+      sizeType: ['original', 'compressed'],
+      sourceType: ['album', 'camera'],
+      success: (result) => {
         const tempFilePaths = result.tempFilePaths
         console.log(tempFilePaths)
         this.setData({
           departmentApplyFile: tempFilePaths
         })
       },
-      fail: ()=>{},
-      complete: ()=>{}
+      fail: () => { },
+      complete: () => { }
     });
   },
-  uploadSchoolApplyFile: function(){
+  uploadSchoolApplyFile: function () {  //上传学校审核信息
     wx.chooseImage({
       count: 1,
-      sizeType: ['original','compressed'],
-      sourceType: ['album','camera'],
-      success: (result)=>{
+      sizeType: ['original', 'compressed'],
+      sourceType: ['album', 'camera'],
+      success: (result) => {
         const tempFilePaths = result.tempFilePaths
         console.log(tempFilePaths)
         this.setData({
           schoolApplyFile: tempFilePaths
         })
       },
-      fail: ()=>{},
-      complete: ()=>{}
+      fail: () => { },
+      complete: () => { }
     });
   },
-  submit: function(){
+  submit: function () { //提交
     wx.showLoading({
       title: '提交中',
       mask: true,
-      success: (result)=>{
-        
+      success: (result) => {
+
       },
-      fail: ()=>{},
-      complete: ()=>{}
+      fail: () => { },
+      complete: () => { }
     });
     console.log(this.data);
     let promiseArr = [];
-    for(let i = 0; i < this.data.departmentApplyFile.length; i++){
+    for (let i = 0; i < this.data.departmentApplyFile.length; i++) {
       promiseArr.push(new Promise((reslove, reject) => {  //异步处理 先对图片进行上传 之后根据返回的图片路径 将信息存储到数据库中
         let item = this.data.departmentApplyFile[i];
         let suffix = /\.\w+$/.exec(item)[0];
         //获取后缀名
         wx.cloud.uploadFile({ //上传学院申请文件
-          cloudPath: 'departmentApplyFiles'+ '/' + new Date().getTime() + suffix,
+          cloudPath: 'departmentApplyFiles' + '/' + new Date().getTime() + suffix,
           filePath: item,
           success: (result) => {
             console.log(result.fileID)
@@ -78,16 +78,16 @@ Page({
             });
             reslove();
           },
-          fail: ()=>{console.error}
+          fail: () => { console.error }
         });
       }));
     }
-    for(let i = 0; i < this.data.schoolApplyFile.length; i++){
+    for (let i = 0; i < this.data.schoolApplyFile.length; i++) {
       promiseArr.push(new Promise((reslove, reject) => {
         let item = this.data.schoolApplyFile[i];
         let suffix = /\.\w+$/.exec(item)[0];
         wx.cloud.uploadFile({ //上传学校申请文件
-          cloudPath: 'schoolApplyFiles'+ '/' + new Date().getTime() + suffix,
+          cloudPath: 'schoolApplyFiles' + '/' + new Date().getTime() + suffix,
           filePath: item,
           success: (result) => {
             console.log(result.fileID)
@@ -96,7 +96,7 @@ Page({
             });
             reslove();
           },
-          fail: ()=>{console.error}
+          fail: () => { console.error }
         });
       }));
     }
@@ -121,13 +121,13 @@ Page({
           image: '',
           duration: 1500,
           mask: false,
-          success: (result)=>{
-            
+          success: (result) => {
+
           },
-          fail: ()=>{},
-          complete: ()=>{}
+          fail: () => { },
+          complete: () => { }
         });
-        wx.navigateBack({//提交成功后返回上页
+        wx.navigateBack({ //提交成功后返回上页
           delta: 1
         });
       }).catch(err => {
@@ -139,11 +139,11 @@ Page({
           image: '',
           duration: 1500,
           mask: false,
-          success: (result)=>{
-            
+          success: (result) => {
+
           },
-          fail: ()=>{},
-          complete: ()=>{}
+          fail: () => { },
+          complete: () => { }
         });
       })
     });
@@ -164,7 +164,7 @@ Page({
       fail: () => { },
       complete: () => { }
     });
-    db.collection('subjectInf').doc(
+    db.collection('subjectInf').doc(  //查询申请项目信息
       options.subjectid
     ).get().then(res => {
       console.log(res)
@@ -174,7 +174,7 @@ Page({
     }).catch(err => {
       console.error(err);
     });
-    db.collection('studentinf').where({
+    db.collection('studentinf').where({ //根据openid查询学生信息
       _openid: app.globalData.openid
     }).get().then(res => {
       console.log(res)
