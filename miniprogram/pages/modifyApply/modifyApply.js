@@ -18,6 +18,7 @@ Page({
     schoolApplyFile: [],
     schoolApplyFileId: []
   },
+  //上传学院文件
   uploadDepartmentApplyFile: function () {
     wx.chooseImage({
       count: 1,
@@ -34,6 +35,7 @@ Page({
       complete: () => { }
     });
   },
+  //上传学校文件
   uploadSchoolApplyFile: function () {
     wx.chooseImage({
       count: 1,
@@ -50,7 +52,7 @@ Page({
       complete: () => { }
     });
   },
-  submit: function () {
+  submit: function () { //提交
     wx.showLoading({
       title: '提交中',
       mask: true,
@@ -62,7 +64,7 @@ Page({
     });
     console.log(this.data);
 
-    wx.cloud.deleteFile({
+    wx.cloud.deleteFile({ //删除原有学院文件
       fileList: this.data.departmentApplyFileId,
       success: res => {
         // handle success
@@ -73,7 +75,7 @@ Page({
       },
       fail: console.error
     })
-    wx.cloud.deleteFile({
+    wx.cloud.deleteFile({ //删除原有学校文件
       fileList: this.data.schoolApplyFileId,
       success: res => {
         // handle success
@@ -190,7 +192,7 @@ Page({
     this.setData({
       applyid: options.applyid,
     })
-    db.collection('applyinf').doc(
+    db.collection('applyinf').doc(  //获取申请信息
       options.applyid
     ).get().then(res => {
       this.setData({

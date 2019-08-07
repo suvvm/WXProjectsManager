@@ -21,39 +21,46 @@ Page({
     addDepartment: '',
     isaddDepartmentShow: false
   },
+  //显示添加学院弹出层
   addDepartmentShow: function () {
     this.setData({
       isaddDepartmentShow: true
     })
   },
+  //关闭添加学院弹出层
   onaddDepartmentClose: function () {
     this.setData({
       isaddDepartmentShow: false
     })
   },
+  //学院信息改变
   addDepartmentChange: function (e) {
     this.setData({
       addDepartment: e.detail,
       //isaddDepartmentShow: false
     })
   },
+  //提交学院
   addDepartmentSubmit: function () {
     this.setData({
       department: this.data.department.concat(this.data.addDepartment)
     })
   },
+  //校名改变
   onSchoolNameChange: function (e) {
     console.log(e.detail);
     this.setData({
       schoolName: e.detail
     })
   },
+  //简介改变
   onIntroduceChange: function (e) {
     console.log(e.detail);
     this.setData({
       introduce: e.detail
     })
   },
+  //上传校徽
   uploadSchoolBadge: function () {
     wx.chooseImage({
       count: 1,
@@ -70,7 +77,7 @@ Page({
       complete: () => { }
     });
   },
-  submit: function (e) {
+  submit: function (e) {  //提交
     wx.showLoading({
       title: '提交中',
       mask: true,
@@ -80,7 +87,7 @@ Page({
       complete: () => { }
     });
     console.log(this.data);
-    if (this.data.schoolBadge == this.data.badgefileIds) {
+    if (this.data.schoolBadge == this.data.badgefileIds) {  //判断之前的校徽与当前校徽是否相等（有些多余）
       db.collection('schoolinf').doc(this.data.dataid).update({
         data: {
           schoolName: this.data.schoolName,
@@ -120,7 +127,7 @@ Page({
       })
     } else {
       console.log("不同")
-      wx.cloud.deleteFile({
+      wx.cloud.deleteFile({ //删除原有校徽
         fileList: this.data.badgefileIds,
         success: res => {
           // handle success
@@ -133,7 +140,7 @@ Page({
         promiseArr.push(new Promise((reslove, reject) => {
           let item = this.data.schoolBadge[i];
           let suffix = /\.\w+$/.exec(item)[0];
-          wx.cloud.uploadFile({
+          wx.cloud.uploadFile({ //上传新校徽
             cloudPath: 'schoolBadge' + '/' + new Date().getTime() + suffix,
             filePath: item,
             success: (result) => {
@@ -147,7 +154,7 @@ Page({
           });
         }));
       }
-      Promise.all(promiseArr).then(res => {
+      Promise.all(promiseArr).then(res => { //更新数据库信息
         db.collection('schoolinf').doc(this.data.dataid).update({
           data: {
             schoolName: this.data.schoolName,
@@ -199,14 +206,14 @@ Page({
    */
   onLoad: function (options) {
     console.log(options);
-    wx.cloud.callFunction({
+    wx.cloud.callFunction({ //获取openid
       name: 'login'
     }).then(res => {
       this.setData({
         openid: res.result.openid
       })
       app.globalData.openid = res.result.openid
-      db.collection('schoolinf').where({
+      db.collection('schoolinf').where({  //查询学校信息
         _openid: this.data.openid
       }).get().then(res2 => {
         console.log(res2);
